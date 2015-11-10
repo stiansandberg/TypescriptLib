@@ -7,4 +7,8 @@
 
     start: Date;
     end: Date;
+
+    getTimeSpan() {
+        return TimeSpan.FromDates(this.start, this.end);
+    }
 }

@@ -6,6 +6,11 @@
     msecPerDay: number = 86400000;
     msecs: number = 0;
 
+    static FromDates = function (firstDate: Date, secondDate: Date) {
+        var differenceMsecs = secondDate.valueOf() - firstDate.valueOf();
+        return new TimeSpan(differenceMsecs, 0, 0, 0, 0);
+    };
+
     static FromSeconds = function (seconds: number) {
         return new TimeSpan(0, seconds, 0, 0, 0);
     };
@@ -26,7 +31,7 @@
         this.msecs += (seconds * this.msecPerSecond);
         this.msecs += milliseconds;
     }
-    
+
     addMilliseconds(milliseconds: number) {
         this.msecs += milliseconds;
     };
@@ -67,14 +72,14 @@
         this.msecs -= (days * this.msecPerDay);
     };
 
-    add(otherTimeSpan: TimeSpan) {
-        this.msecs += otherTimeSpan.totalMilliseconds();
+    add(timespan: TimeSpan) {
+        this.msecs += timespan.totalMilliseconds();
     };
-    subtract(otherTimeSpan: TimeSpan) {
-        this.msecs -= otherTimeSpan.totalMilliseconds();
+    subtract(timespan: TimeSpan) {
+        this.msecs -= timespan.totalMilliseconds();
     };
-    equals(otherTimeSpan: TimeSpan) {
-        return this.msecs === otherTimeSpan.totalMilliseconds();
+    equals(timespan: TimeSpan) {
+        return this.msecs === timespan.totalMilliseconds();
     };
 
 
