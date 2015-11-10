@@ -79,7 +79,6 @@
   <ItemGroup>
     <Content Include="Test\index.html" />
     <Content Include="Web.config" />
-    <TypeScriptCompile Include="Test\DateTime.ts" />
     <TypeScriptCompile Include="Test\Holydays.ts" />
     <TypeScriptCompile Include="Test\List.ts" />
     <TypeScriptCompile Include="Test\Prototypes.String.ts" />
@@ -90,7 +89,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="DateTime.ts" />
     <TypeScriptCompile Include="DayOfWeek.ts" />
     <TypeScriptCompile Include="HolydayService.ts" />
     <TypeScriptCompile Include="List.ts" />
