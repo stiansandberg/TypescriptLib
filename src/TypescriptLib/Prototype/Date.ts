@@ -1,6 +1,7 @@
 ﻿interface Date {
     isToday(): boolean;
     isSameDay(value: Date): boolean;
+    addYears(years: number): Date;
     addMonths(months: number): Date;
     addDays(days: number): Date;
     addHours(hours: number): Date;
@@ -24,6 +25,13 @@ Date.prototype.isSameDay = function (otherDate: Date) {
     var date2 = otherDate;
     return (date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate());
 };
+
+Date.prototype.addYears = function (years: number) {
+    var date:Date = this.copy();
+    var newYear = date.getFullYear() + years;
+    date.setFullYear(newYear);
+    return date;
+}
 
 Date.prototype.addMonths = function (months: number): Date {
     var value = this.copy();

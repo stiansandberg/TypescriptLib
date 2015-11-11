@@ -28,6 +28,12 @@ QUnit.test('isSameDay', function (a: QUnitAssert) {
     a.ok(birthdate.isSameDay(new Date(1977, 1, 15)));
 });
 
+QUnit.test('addYears', function (a: QUnitAssert) {
+    a.ok(birthdate.addYears(2).getFullYear() === 1979);
+    a.ok(birthdate.addYears(40).getFullYear() === 2017);
+    a.ok(birthdate.addYears(-100).getFullYear() === 1877)
+});
+
 QUnit.test('addMonths', function (a: QUnitAssert) {
     a.ok(birthdate.addMonths(1) != null);
     a.ok(birthdate.addMonths(1).isSameDay(new Date(1977, 2, 15)));
