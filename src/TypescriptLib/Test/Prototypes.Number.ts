@@ -1,11 +1,41 @@
 ﻿QUnit.module('Prototypes.Number');
 
+QUnit.test('floor', function (a: QUnitAssert) {
+    for (var i = 0; i < 100; ++i) {
+        var rndNumber = Math.floor((Math.random() * 10000) + 1) * Math.random();
+        var floor = rndNumber.floor();
+        a.ok(Math.floor(rndNumber) === floor, 'floor ' + rndNumber + ' eq ' + floor);
+    }
+});
+
+QUnit.test('ceil', function (a: QUnitAssert) {
+    for (var i = 0; i < 100; ++i) {
+        var rndNumber = Math.floor((Math.random() * 10000) + 1) * Math.random();
+        var ceil = rndNumber.ceil();
+        a.ok(Math.ceil(rndNumber) === ceil, 'ceil ' + rndNumber + ' eq ' + ceil);
+    }
+});
 
 QUnit.test('percent', function (a: QUnitAssert) {
-    a.ok((100).addPercent(10) === 110);
-    a.ok((50).addPercent(10) === 55);
-    a.ok((10).addPercent(1) === 10.1);
-    a.ok((100).addPercent(-10) === 90);
+
+    var testAddPercent = function (num: number, percent: number, expect: number) {
+        a.ok((num).addPercent(percent) === expect, num + ' + ' + percent + '% er ' + expect);
+    }
+    var testPercentageOf = function (num: number, total: number, expect: number) {
+        a.ok((num).percentageOf(total) === expect, expect + '% av ' + total + ' er ' + num);
+    }
+
+    testAddPercent(100, 10, 110);
+    testAddPercent(50, 10, 55);
+    testAddPercent(10, 1, 10.1);
+    testAddPercent(100, -10, 90);
+
+    testPercentageOf(100, 200, 50);
+    testPercentageOf(50, 200, 25);
+    testPercentageOf(20, 200, 10);
+    testPercentageOf(100, 100, 100);
+    testPercentageOf(50, 100, 50);
+    testPercentageOf(20, 100, 20);
 });
 
 QUnit.test('between', function (a: QUnitAssert) {

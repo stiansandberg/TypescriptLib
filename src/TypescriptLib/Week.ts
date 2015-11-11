@@ -51,11 +51,11 @@
     }
 
     private _gregdaynumber(year, month, day): number {
-        var y = year;
-        var m = month;
-        if (month < 3) y = y - 1;
-        if (month < 3) m = m + 12;
-        return Math.floor(365.25 * y) - Math.floor(y / 100) + Math.floor(y / 400) + Math.floor(30.6 * (m + 1)) + day - 62;
+        if (month < 3) {
+            year--;
+            month = month + 12
+        };
+        return (365.25 * year).floor() - (year / 100).floor() + (year / 400).floor() + (30.6 * (month + 1)).floor() + day - 62;
     }
 
     private _isocalendar1(date: Date): number {
@@ -64,23 +64,20 @@
         var month = date.getMonth();
         var day = date.getDate();
         var wday = date.getDay();
-
         var weekday = ((wday + 6) % 7) + 1;
-
         var d0 = this._gregdaynumber(year, 1, 0);
         var weekday0 = ((d0 + 4) % 7) + 1;
 
         var d = this._gregdaynumber(year, month + 1, day);
-        var isoweeknr = Math.floor((d - d0 + weekday0 + 6) / 7) - Math.floor((weekday0 + 3) / 7);
+        var isoweeknr = ((d - d0 + weekday0 + 6) / 7).floor() - ((weekday0 + 3) / 7).floor();
 
         if ((month == 11) && ((day - weekday) > 27)) {
             isoweeknr = 1;
         }
-
         if ((month == 0) && ((weekday - day) > 3)) {
             d0 = this._gregdaynumber(year - 1, 1, 0);
             weekday0 = ((d0 + 4) % 7) + 1;
-            isoweeknr = Math.floor((d - d0 + weekday0 + 6) / 7) - Math.floor((weekday0 + 3) / 7);
+            isoweeknr = ((d - d0 + weekday0 + 6) / 7).floor() - ((weekday0 + 3) / 7).floor();
         }
         return isoweeknr;
     }

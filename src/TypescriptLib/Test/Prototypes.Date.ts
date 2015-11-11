@@ -107,27 +107,29 @@ QUnit.test('dayOfWeek', function (a: QUnitAssert) {
 });
 
 QUnit.test('isLeapYear', function (a: QUnitAssert) {
-    a.ok(new Date(2016, 2, 2).isLeapYear());
-    a.ok(new Date(2012, 2, 2).isLeapYear());
-    a.ok(new Date(2008, 2, 2).isLeapYear());
-    a.ok(new Date(2004, 2, 2).isLeapYear());
-    a.ok(new Date(2000, 2, 2).isLeapYear());
-    a.ok(new Date(1996, 2, 2).isLeapYear());
-    a.ok(new Date(1992, 2, 2).isLeapYear());
-    a.ok(new Date(2015, 2, 2).isLeapYear() === false);
-    a.ok(new Date(2013, 2, 2).isLeapYear() === false);
-    a.ok(new Date(2007, 2, 2).isLeapYear() === false);
-    a.ok(new Date(2005, 2, 2).isLeapYear() === false);
-    a.ok(new Date(2001, 2, 2).isLeapYear() === false);
-    a.ok(new Date(1991, 2, 2).isLeapYear() === false);
-    a.ok(new Date(1989, 2, 2).isLeapYear() === false);
+
+    var leapYears = [
+        1804, 1872, 1944, 2012, 2080, 2152, 1808, 1876, 1948, 2016, 2084, 2156,
+        1812, 1880, 1952, 2020, 2088, 2160, 1816, 1884, 1956, 2024, 2092, 2164,
+        1820, 1888, 1960, 2028, 2096, 2168, 1824, 1892, 1964, 2032, 2104, 2172,
+        1828, 1896, 1968, 2036, 2108, 2176, 1832, 1904, 1972, 2040, 2112, 2180,
+        1836, 1908, 1976, 2044, 2116, 2184, 1840, 1912, 1980, 2048, 2120, 2188,
+        1844, 1916, 1984, 2052, 2124, 2192, 1848, 1920, 1988, 2056, 2128, 2196,
+        1852, 1924, 1992, 2060, 2132, 1856, 1928, 1996, 2064, 2136, 1860, 1932,
+        2000, 2068, 2140, 1864, 1936, 2004, 2072, 2144, 1868, 1940, 2008, 2076];
+
+    var year = 1804;
+    while (year < 2079) {
+        if (leapYears.contains(year)) {
+            a.ok(new Date(year, 2, 2).isLeapYear(), year + ' er skuddår');
+        }
+        else {
+            a.ok(new Date(year, 2, 2).isLeapYear()===false, year + ' er ikke skuddår');
+        }
+        year++;
+    }
 });
 
 QUnit.test('getWeek', function (a: QUnitAssert) {
     a.ok(birthdate.getWeek().weekNumber === 7);
 });
-
-QUnit.test('getDateTime', function (a: QUnitAssert) {
-    a.ok(1 == 1);
-});
-

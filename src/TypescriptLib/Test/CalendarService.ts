@@ -58,10 +58,13 @@ QUnit.test('Calendar holydays', function (a: QUnitAssert) {
 
 QUnit.test('A bounch of calendars', function (a: QUnitAssert) {
 
-    var date = new Date();
+    var date = new Date().addYears(-400);
 
-    for (var i = 0; i < 500; ++i) {
-        date = date.addDays(-149);
+    for (var i = 0; i < 300; ++i) {
+
+        var rndDays = Math.floor((Math.random() * 200) + 1) + 500;
+
+        date = date.addDays(rndDays);
         var cal = calendarService.getCalendar(date.getFullYear(), date.getMonth()+1);
         testBounchOfCalendars(a, cal);
     }
@@ -69,9 +72,11 @@ QUnit.test('A bounch of calendars', function (a: QUnitAssert) {
 });
 
 function testBounchOfCalendars(a: QUnitAssert, cal: Services.Calendar) {
-    a.ok(cal.dates.length > 27, 'dates: ' + cal.dates.length);
-    a.ok(cal.preDates.length > 0, 'preDates: ' + cal.preDates.length);
-    a.ok(cal.postDates.length > 0, 'postDates: ' + cal.postDates.length);
+
+    a.ok(1 === 1, 'calendar: ' + cal.year + '.' + cal.month);
+    a.ok(cal.dates.length.between(28, 31), 'dates: ' + cal.dates.length);
+    a.ok(cal.preDates.length.between(0, 14), 'preDates: ' + cal.preDates.length);
+    a.ok(cal.postDates.length.between(0, 14), 'postDates: ' + cal.postDates.length);
     a.ok(cal.weeks.length === 6);
 
     a.ok(cal.weeks[0].weekNumber.between(1, 53));

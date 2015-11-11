@@ -87,6 +87,7 @@
     <TypeScriptCompile Include="Test\Prototypes.Date.ts" />
     <TypeScriptCompile Include="Test\Prototypes.Number.ts" />
     <TypeScriptCompile Include="Test\Timespan.ts" />
+    <TypeScriptCompile Include="Test\Week.ts" />
     <TypeScriptCompile Include="TimeSpan.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\references.ts" />
   </ItemGroup>
