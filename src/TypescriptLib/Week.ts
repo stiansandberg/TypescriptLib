@@ -5,7 +5,7 @@
     }
 
     constructor(date: Date) {
-        this._date = date;
+        this._date = date.date();
         this.weekNumber = this._isocalendar1(date);
     }
 
