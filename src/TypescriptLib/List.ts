@@ -40,11 +40,8 @@
         }
 
         public addRange(items: Array<T>): List<T> {
-            if (this._items.length == 0) {
-                this._items = items;
-            }
-            else {
-                this._items.concat(items);
+            for (var i = 0; i < items.length; ++i) {
+                this.add(items[i]);
             }
             return this;
         }

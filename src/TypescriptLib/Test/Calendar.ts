@@ -1,0 +1,103 @@
+﻿
+QUnit.module('Calendar');
+
+var calendarService = new Services.CalendarService();
+
+QUnit.test('Calendar', function (a: QUnitAssert) {
+
+    testCalendar(a, calendarService.getCalendar(2015, 5));
+    testCalendar(a, calendarService.getCalendar(2015, 8));
+    testCalendar(a, calendarService.getCalendar(1977, 2));
+
+    var cal = calendarService.getCalendar(2015, 1);
+    cal.weeks.forEach(function (week: Week) {
+        a.ok(week.weekNumber > 0, week.weekNumber.toString());
+    });
+    a.ok(cal.preDates[0].date.getFullYear() === 2014);
+    a.ok(cal.postDates[0].date.getFullYear() === 2015);
+
+    cal = calendarService.getCalendar(2000, 12);
+    cal.weeks.forEach(function (week: Week) {
+        a.ok(week.weekNumber > 0, week.weekNumber.toString());
+    });
+    a.ok(cal.preDates[0].date.getFullYear() === 2000);
+    a.ok(cal.postDates[0].date.getFullYear() === 2001);
+});
+
+QUnit.test('Calendar holydays', function (a: QUnitAssert) {
+
+    var cal = calendarService.getCalendar(2015, 5);
+
+    var holydaysInMay2015 = 0;
+    cal.dates.forEach(function (date: Services.ICalendarDay) {
+        if (date.holydays.length > 0) {
+            holydaysInMay2015++;
+        }
+    });
+    a.ok(holydaysInMay2015 === 5);
+
+
+    cal = calendarService.getCalendar(2015, 2);
+
+    var holydaysInFeb2015 = 0;
+    cal.dates.forEach(function (date: Services.ICalendarDay) {
+        if (date.holydays.length > 0) {
+            holydaysInFeb2015++;
+        }
+    });
+    a.ok(holydaysInFeb2015 === 0);
+
+
+
+    cal = calendarService.getCalendar(2015, 1);
+    cal.preDates.forEach(function (date: Services.ICalendarDay) {
+        a.ok(1 == 1, angular.toJson(date));
+    })
+
+});
+
+QUnit.test('A bounch of calendars', function (a: QUnitAssert) {
+
+    var date = new Date();
+
+    for (var i = 0; i < 500; ++i) {
+        date = date.addDays(-149);
+        var cal = calendarService.getCalendar(date.getFullYear(), date.getMonth()+1);
+        testBounchOfCalendars(a, cal);
+    }
+
+});
+
+function testBounchOfCalendars(a: QUnitAssert, cal: Services.Calendar) {
+    a.ok(cal.dates.length > 27, 'dates: ' + cal.dates.length);
+    a.ok(cal.preDates.length > 0, 'preDates: ' + cal.preDates.length);
+    a.ok(cal.postDates.length > 0, 'postDates: ' + cal.postDates.length);
+    a.ok(cal.weeks.length === 6);
+
+    a.ok(cal.weeks[0].weekNumber.between(1, 53));
+    a.ok(cal.weeks[1].weekNumber.between(1, 53) && cal.weeks[1].weekNumber != cal.weeks[0].weekNumber);
+    a.ok(cal.weeks[2].weekNumber.between(1, 53) && cal.weeks[2].weekNumber != cal.weeks[1].weekNumber);
+    a.ok(cal.weeks[3].weekNumber.between(1, 53) && cal.weeks[3].weekNumber != cal.weeks[2].weekNumber);
+    a.ok(cal.weeks[4].weekNumber.between(1, 53) && cal.weeks[4].weekNumber != cal.weeks[3].weekNumber);
+    a.ok(cal.weeks[5].weekNumber.between(1, 53) && cal.weeks[5].weekNumber != cal.weeks[4].weekNumber);
+}
+
+function testCalendar(a: QUnitAssert, cal: Services.Calendar) {
+
+    cal.weeks.forEach(function (week: Week) {
+        a.ok(week.weekNumber > 0, week.weekNumber.toString());
+    });
+
+    cal.preDates.forEach(function (date: Services.ICalendarDay) {
+        a.ok(date.date.getMonth() === cal.month - 2, 'preDate ' + date.date.format('dd.MM.yyyy'));
+    });
+    cal.dates.forEach(function (date: Services.ICalendarDay) {
+        a.ok(date.date.getMonth() === cal.month - 1, 'date ' + date.date.format('dd.MM.yyyy'));
+    });
+    cal.postDates.forEach(function (date: Services.ICalendarDay) {
+        a.ok(date.date.getMonth() === cal.month, 'postDate ' + date.date.format('dd.MM.yyyy'));
+    });
+
+    a.ok(cal.preDates[0].date.dayOfWeek() === DayOfWeek.Monday);
+
+}

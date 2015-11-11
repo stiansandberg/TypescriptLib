@@ -17,6 +17,7 @@ interface Array<T> {
     remove(value: T): void;
     addOrRemoveIfExists(value: T): void;
     pushIfNotExists(value: T): void;
+    toList<T>(): Collections.List<T>;
 }
 
 Array.prototype.contains = function (value) {
@@ -54,4 +55,8 @@ Array.prototype.pushIfNotExists = function (obj) {
         return;
     }
     this.push(obj);
+}
+
+Array.prototype.toList = function() {
+    return new Collections.List(this);
 }

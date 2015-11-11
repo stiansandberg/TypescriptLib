@@ -13,7 +13,6 @@
     dayOfWeek(): DayOfWeek;
     isLeapYear(): boolean;
     getWeek(): Week;
-    getDateTime(): DateTime;
 }
 
 Date.prototype.isToday = function (): boolean {
@@ -127,8 +126,4 @@ Date.prototype.getWeekNumber = function (): number {
 
 Date.prototype.getWeek = function (): Week {
     return new Week(this);
-}
-
-Date.prototype.getDateTime = function (): DateTime {
-    return DateTime.FromDate(this);
 }
