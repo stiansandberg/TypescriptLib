@@ -21,17 +21,67 @@
         count(predicate?: (item: T) => boolean): number;
         copy(): List<T>;
         clear(): void;
+        sum(predicate: (item: T) => number): number;
+        avg(predicate: (item: T) => number): number;
+        min(predicate: (item: T) => number): number;
+        max(predicate: (item: T) => number): number;
     }
 
     export class List<T> implements Collections.IList<T>{
 
         private _items: Array<T> = [];
-        //private _numItems: number = 0;
 
         public constructor(items?: Array<T>) {
             if (items && items.length > 0) {
                 this._items = items;
             }
+        }
+
+        public sum(predicate: (item: T) => number): number {
+            if (this._items.length === 0)
+                return 0;
+
+            var sum = 0;
+            for (var i = 0; i < this._items.length; i++) {
+                sum += predicate(this._items[i]);
+            }
+
+            return sum;
+        }
+
+        public avg(predicate: (item: T) => number): number {
+            if (this._items.length === 0)
+                return 0;
+
+            var sum = 0;
+            for (var i = 0; i < this._items.length; i++) {
+                sum += predicate(this._items[i]);
+            }
+            return sum / this._items.length;
+        }
+
+        public min(predicate: (item: T) => number): number {
+            if (this._items.length === 0)
+                return 0;
+
+            var values: Array<number> = [];
+            for (var i = 0; i < this._items.length; i++) {
+                values.push(predicate(this._items[i]));
+            }
+
+            return Math.min.apply(null, values);
+        }
+
+        public max(predicate: (item: T) => number): number {
+            if (this._items.length === 0)
+                return 0;
+
+            var values: Array<number> = [];
+            for (var i = 0; i < this._items.length; i++) {
+                values.push(predicate(this._items[i]));
+            }
+
+            return Math.max.apply(null, values);
         }
 
         public add(item: T): List<T> {
@@ -56,7 +106,7 @@
             var _secondPartArray: Array<T> = this._items.slice(index, this._items.length);
             _firstPartArray.push(item);
             this._items = _firstPartArray.concat(_secondPartArray);
-     
+
             return this;
         }
 

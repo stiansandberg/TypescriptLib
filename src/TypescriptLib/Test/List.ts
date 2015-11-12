@@ -3,16 +3,17 @@
 interface IPerson {
     name: string;
     age: number;
+    birthdate?: Date;
 }
 
 
 function getPersons(): Collections.List<IPerson> {
     var personList = new Collections.List<IPerson>();
-    personList.add({ name: 'aa', age: 15 });
-    personList.add({ name: 'bb', age: 3 });
-    personList.add({ name: 'cc', age: 28 });
-    personList.add({ name: 'dd', age: 32 });
-    personList.add({ name: 'ee', age: 78 });
+    personList.add({ name: 'aa', age: 15, birthdate: new Date().addYears(-15) });
+    personList.add({ name: 'bb', age: 3, birthdate: new Date().addYears(-3) });
+    personList.add({ name: 'cc', age: 28, birthdate: new Date().addYears(-28) });
+    personList.add({ name: 'dd', age: 32, birthdate: new Date().addYears(-32) });
+    personList.add({ name: 'ee', age: 78, birthdate: new Date().addYears(-78) });
     return personList;
 }
 /*
@@ -37,6 +38,42 @@ function getPersons(): Collections.List<IPerson> {
         copy(): List<T>;
         clear(): void;
 */
+
+QUnit.test('sum/avg', function (a: QUnitAssert) {
+
+    var persons = getPersons();
+
+    var loopSum = 0;
+    persons.forEach(function (person) {
+        loopSum += person.age;
+    });
+    var loopAvg = loopSum / persons.count();
+    var listSum = persons.sum(p=> p.age);
+    var listAvg = persons.avg(p=> p.age);
+
+    a.ok(listSum === loopSum, 'sum age was ' + listSum);
+    a.ok(listAvg === loopAvg, 'avg age was ' + listAvg);
+
+
+    var numbers = new Collections.List<number>([1, 2, 3]);
+    a.ok(numbers.avg(n=> n) === 2);
+    a.ok(numbers.sum(n=> n) === 6);
+
+    numbers = new Collections.List<number>([1, 2, 3, 4]);
+    a.ok(numbers.avg(n=> n) === 2.5);
+});
+
+QUnit.test('min/max', function (a: QUnitAssert) {
+    var persons = getPersons();
+
+    a.ok(persons.min(p=> p.age) === 3, 'min age expected 3 was ' + persons.min(p=> p.age));
+    a.ok(persons.max(p=> p.age) === 78, 'max age expected 78 was ' + persons.max(p=> p.age));
+
+    var numbers = new Collections.List<number>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    a.ok(numbers.min(n=> n) === 1);
+    a.ok(numbers.max(n=> n) === 9);
+});
+
 QUnit.test('initial', function (a: QUnitAssert) {
     var personList = getPersons();
     a.ok(personList.count() === 5, 'count() should be 5. Is ' + personList.count());
