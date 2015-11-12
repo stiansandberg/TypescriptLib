@@ -12,7 +12,14 @@
     replaceAll(target: string, replacement: string): string;
     padLeft(length: number, character: string): string;
     padRight(length: number, character: string): string;
+    format(...args: string[]): string;
 }
+
+String.prototype.format = function (...args: string[]) {
+    return this.replace(/{(\d+)}/g, function (match, number) {
+        return typeof args[number] != 'undefined' ? args[number] : match;
+    });
+};
 
 String.prototype.toLower = function () {
     return this.toLowerCase();
@@ -101,10 +108,10 @@ String.prototype.replaceAll = function (target: string, replacement: string): st
     return this.split(target).join(replacement);
 };
 
-
 String.prototype.padRight = function (length, character) {
     return this + new Array(length - this.length + 1).join(character || ' ');
 }
+
 String.prototype.padLeft = function (length, character) {
     return new Array(length - this.length + 1).join(character || ' ') + this;
 }

@@ -38,6 +38,10 @@ function getPersons(): Collections.List<IPerson> {
         copy(): List<T>;
         clear(): void;
 */
+QUnit.test('initial', function (a: QUnitAssert) {
+    var personList = getPersons();
+    a.ok(personList.count() === 5, 'count() should be 5. Is ' + personList.count());
+});
 
 QUnit.test('sum/avg', function (a: QUnitAssert) {
 
@@ -72,11 +76,6 @@ QUnit.test('min/max', function (a: QUnitAssert) {
     var numbers = new Collections.List<number>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     a.ok(numbers.min(n=> n) === 1);
     a.ok(numbers.max(n=> n) === 9);
-});
-
-QUnit.test('initial', function (a: QUnitAssert) {
-    var personList = getPersons();
-    a.ok(personList.count() === 5, 'count() should be 5. Is ' + personList.count());
 });
 
 QUnit.test('add', function (a: QUnitAssert) {

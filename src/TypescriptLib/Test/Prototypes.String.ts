@@ -1,5 +1,14 @@
 ﻿QUnit.module('Prototypes.String');
 
+QUnit.test('format', function (a: QUnitAssert) {
+
+    a.strictEqual('123{0}123'.format('test'), '123test123');
+    a.strictEqual('123{0}12{1}3'.format('test','test'), '123test12test3');
+    a.strictEqual('{0} {1}'.format('Stian', 'Sandberg'), 'Stian Sandberg');
+    a.strictEqual('{0}.{1}.{0}.{1}'.format('1', '2x'), '1.2x.1.2x');
+
+});
+
 QUnit.test('toUpper', function (a: QUnitAssert) {
 
     a.ok('stian'.toUpper() === 'STIAN');
