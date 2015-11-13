@@ -18,6 +18,8 @@ interface Array<T> {
     addOrRemoveIfExists(value: T): void;
     pushIfNotExists(value: T): void;
     toList<T>(): Collections.List<T>;
+    addRange(arr: Array<T>): Array<T>;
+    clone(): Array<T>;
 }
 
 Array.prototype.contains = function (value) {
@@ -25,6 +27,22 @@ Array.prototype.contains = function (value) {
         return false;
     return this.indexOf(value) > -1;
 }
+
+Array.prototype.clone = function () {
+    return this.slice(0);
+}
+
+Array.prototype.addRange = function (arr: Array<any>) {
+    if (!arr || arr.length === 0)
+        return this;
+
+    var newArray = this.clone();
+    for (var i = 0; i < arr.length; i++) {
+        newArray.push(arr[i]);
+    }
+    return newArray;
+}
+
 
 Array.prototype.remove = function (value) {
     if (!value)
@@ -57,6 +75,6 @@ Array.prototype.pushIfNotExists = function (obj) {
     this.push(obj);
 }
 
-Array.prototype.toList = function() {
+Array.prototype.toList = function () {
     return new Collections.List(this);
 }
