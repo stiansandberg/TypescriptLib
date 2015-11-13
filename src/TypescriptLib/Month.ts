@@ -19,6 +19,11 @@
     year: number;
     monthNumber: number;
 
+    public getMonthName() {
+        var months = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
+        return months[this.monthNumber - 1];
+    }
+
     public getDates(): Array<Date> {
         if (this._dates.length > 0)
             return this._dates;
@@ -26,7 +31,7 @@
         var date = new Date(this.year, this.monthNumber - 1, 1);
         var month = date.getMonth();
 
-        while (date.getMonth() != month) {
+        while (date.getMonth() == month) {
             this._dates.push(date);
             date = date.addDays(1);
         }
