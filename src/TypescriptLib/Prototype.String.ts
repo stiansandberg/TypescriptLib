@@ -13,6 +13,24 @@
     padLeft(length: number, character: string): string;
     padRight(length: number, character: string): string;
     format(...args: string[]): string;
+    toDate(): Date;
+}
+
+String.prototype.toDate = function (): Date {
+
+    var parts = this.split('.');
+    if (parts.length !== 3)
+        return null;
+
+    var day = parseInt(parts[0]);
+    var month = parseInt(parts[1]);
+    var year = parseInt(parts[2]);
+    var nan = parseInt('dummy');
+
+    if (day == nan || month == nan || year == nan) {
+        return null;
+    }
+    return new Date(year, month - 1, day);
 }
 
 String.prototype.format = function (...args: string[]) {

@@ -9,6 +9,7 @@
     addSeconds(seconds: number): Date;
     date(): Date;
     format(format: string): string;
+    parse(format: string): Date;
     getWeekNumber(): number;
     copy(): Date;
     dayOfWeek(): DayOfWeek;
