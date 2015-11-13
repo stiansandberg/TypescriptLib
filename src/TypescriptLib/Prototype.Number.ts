@@ -5,6 +5,11 @@
     in(numbers: Array<number>): boolean;
     floor(): number;
     ceil(): number;
+    round(): number;
+}
+
+Number.prototype.round = function () {
+    return Math.round(this);
 }
 
 Number.prototype.floor = function (): number {
