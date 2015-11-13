@@ -5,7 +5,7 @@
         return new Month(now.getFullYear(), now.getMonth() + 1);
     }
 
-    static FromDate(date:Date): Month {
+    static FromDate(date: Date): Month {
         return new Month(date.getFullYear(), date.getMonth() - 1);
     }
 
@@ -25,17 +25,16 @@
     }
 
     public getDates(): Array<Date> {
-        if (this._dates.length > 0)
-            return this._dates;
+
+        this._dates = [];
 
         var date = new Date(this.year, this.monthNumber - 1, 1);
-        var month = date.getMonth();
+        var monthIndex = date.getMonth();
 
-        while (date.getMonth() == month) {
+        while (date.getMonth() == monthIndex) {
             this._dates.push(date);
             date = date.addDays(1);
         }
-
         return this._dates;
     }
 
@@ -54,7 +53,7 @@
     }
 
     public addMonths = function (value: number): Month {
-        var month = Month.FromDate(this.getDates()[10]);
+        var month = new Month(this.year, this.monthNumber);
 
         if (value === 0)
             return month;

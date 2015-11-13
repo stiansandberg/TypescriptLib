@@ -83,6 +83,7 @@
     <TypeScriptCompile Include="Test\CalendarService.ts" />
     <TypeScriptCompile Include="Test\HolydayService.ts" />
     <TypeScriptCompile Include="Test\List.ts" />
+    <TypeScriptCompile Include="Test\Month.ts" />
     <TypeScriptCompile Include="Test\Prototypes.String.ts" />
     <TypeScriptCompile Include="Test\Prototypes.Date.ts" />
     <TypeScriptCompile Include="Test\Prototypes.Number.ts" />
