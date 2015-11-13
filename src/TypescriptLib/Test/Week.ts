@@ -7,12 +7,12 @@ QUnit.test('Weeknumber', function (a: QUnitAssert) {
     var start = new Date();
     
     someRandomDates(a);
-    test2028(a);
-    test2019(a);
-    test2015(a);
-    test2014(a);
-    test2000(a);
-    test1987(a);    
+    //test2028(a);
+    //test2019(a);
+    //test2015(a);
+    //test2014(a);
+    //test2000(a);
+    //test1987(a);    
 
     var end = new Date();
     var timeTaken = TimeSpan.FromDates(start, end).totalMilliseconds();

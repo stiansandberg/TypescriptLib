@@ -30,6 +30,10 @@ String.prototype.toDate = function (): Date {
     if (day == nan || month == nan || year == nan) {
         return null;
     }
+    if (day > 31 || month > 12 || year > 2100 || year < 1900) {
+        return null;
+    }
+
     return new Date(year, month - 1, day);
 }
 

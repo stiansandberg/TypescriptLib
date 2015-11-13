@@ -60,7 +60,7 @@ QUnit.test('A bounch of calendars', function (a: QUnitAssert) {
 
     var date = new Date().addYears(-400);
 
-    for (var i = 0; i < 300; ++i) {
+    for (var i = 0; i < 10; ++i) {
 
         var rndDays = Math.floor((Math.random() * 200) + 1) + 500;
 
