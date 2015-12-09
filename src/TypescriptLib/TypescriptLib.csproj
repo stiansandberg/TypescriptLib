@@ -80,6 +80,7 @@
     <Content Include="Test\index.html" />
     <Content Include="Web.config" />
     <TypeScriptCompile Include="CalendarService.ts" />
+    <TypeScriptCompile Include="i18n\nb-no.ts" />
     <TypeScriptCompile Include="Test\CalendarService.ts" />
     <TypeScriptCompile Include="Test\HolydayService.ts" />
     <TypeScriptCompile Include="Test\List.ts" />

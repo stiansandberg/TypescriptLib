@@ -20,8 +20,7 @@
     monthNumber: number;
 
     public getMonthName() {
-        var months = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
-        return months[this.monthNumber - 1];
+        return i18n.Calendar.monthNames[this.monthNumber - 1];
     }
 
     public getDates(): Array<Date> {

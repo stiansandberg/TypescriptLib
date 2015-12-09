@@ -1,5 +1,10 @@
 ﻿module Collections {
 
+    export interface IGroupResult {
+        value: any;
+        count: number;
+    }
+
     export interface IList<T> {
         add(item: T);
         addRange(item: Array<T>);
@@ -25,6 +30,7 @@
         avg(predicate: (item: T) => number): number;
         min(predicate: (item: T) => number): number;
         max(predicate: (item: T) => number): number;
+        group(predicate: (item: T) => any): Array<IGroupResult>
     }
 
     export class List<T> implements Collections.IList<T>{
@@ -35,6 +41,28 @@
             if (items && items.length > 0) {
                 this._items = items;
             }
+        }
+
+        public group(predicate: (item: T) => any): Array<IGroupResult> {
+            var result: Array<IGroupResult> = [];
+            
+            for (var i = 0; i < this._items.length; i++) {
+                var value = predicate(this._items[i]);
+                var exists = false;
+
+                for (var r = 0; r < result.length; r++) {
+                    if (result[r].value === value) {
+                        result[r].count++;
+                        exists = true;
+                    }
+                }
+
+                if (!exists) {
+                    result.push({ value: value, count: 1 });
+                }
+            }
+
+            return result;
         }
 
         public sum(predicate: (item: T) => number): number {

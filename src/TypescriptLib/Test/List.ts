@@ -43,6 +43,20 @@ QUnit.test('initial', function (a: QUnitAssert) {
     a.ok(personList.count() === 5, 'count() should be 5. Is ' + personList.count());
 });
 
+QUnit.test('group', function (a: QUnitAssert) {
+
+    var persons = getPersons();
+    persons.add({ name: 'test', age: 10, birthdate: new Date() });
+    persons.add({ name: 'test', age: 10, birthdate: new Date() });
+    persons.add({ name: 'test', age: 10, birthdate: new Date() });
+
+    var g = persons.group(m=> m.name);
+
+    console.log(g);
+
+
+});
+
 QUnit.test('sum/avg', function (a: QUnitAssert) {
 
     var persons = getPersons();
