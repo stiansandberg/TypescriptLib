@@ -43,6 +43,13 @@ QUnit.test('initial', function (a: QUnitAssert) {
     a.ok(personList.count() === 5, 'count() should be 5. Is ' + personList.count());
 });
 
+QUnit.test('any', function (a: QUnitAssert) {
+    var persons = getPersons();
+
+    a.equal(persons.any(p=> p.age > 0), true);
+    a.equal(persons.any(p=> p.age < 0), false);
+});
+
 QUnit.test('group', function (a: QUnitAssert) {
 
     var persons = getPersons();
@@ -52,8 +59,7 @@ QUnit.test('group', function (a: QUnitAssert) {
 
     var g = persons.group(m=> m.name);
 
-    console.log(g);
-
+    a.equal(g.length > 0, true);
 
 });
 

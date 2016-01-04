@@ -9,6 +9,7 @@
     export interface IList<T> {
         add(item: T);
         addRange(item: Array<T>);
+        any(predicate?: (item: T) => boolean): boolean;
         insert(index: number, item: T): List<T>;
         first(): T;
         firstOrDefault(predicate?: (item: T) => boolean): T;
@@ -26,6 +27,7 @@
         contains(predicate?: (item: T) => boolean): boolean;
         count(predicate?: (item: T) => boolean): number;
         copy(): List<T>;
+        distinct(): List<T>;
         clear(): void;
         sum(predicate: (item: T) => number): number;
         avg(predicate: (item: T) => number): number;
@@ -42,6 +44,23 @@
             if (items && items.length > 0) {
                 this._items = items;
             }
+        }
+
+        public any(predicate?: (item: T) => boolean): boolean {
+            for (var i = 0; i < this._items.length; i++) {
+                if (predicate(this._items[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public distinct(): List<T> {
+            var arr= this._items.reduce(function (p, c) {
+                if (p.indexOf(c) < 0) p.push(c);
+                return p;
+            }, []);
+            return new List<T>(arr);
         }
 
         public group(predicate: (item: T) => any): Array<IGroupResult<T>> {
