@@ -80,3 +80,21 @@ QUnit.test('isInrange', (a: QUnitAssert) => {
 
 });
 
+QUnit.test('isIpAddress', (a: QUnitAssert) => {
+
+
+    var validIps: Array<any> = ['123.123.123.123','1.1.1.1','8.8.8.8','255.255.255.255','192.168.0.1'];
+    var invalidIps: Array<any> = [1,'1.1.1','123.123.123.256','test','123.123','321.3.3.3'];
+
+    var i = 0;
+    for (i = 0; i < validIps.length; i++) {
+        a.equal(Validation.isIpAddress(validIps[i]), true);
+    }
+
+    i = 0;
+    for (i = 0; i < invalidIps.length; i++) {
+        a.equal(Validation.isIpAddress(invalidIps[i]), false);
+    }
+
+});
+

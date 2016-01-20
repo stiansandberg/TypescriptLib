@@ -19,9 +19,8 @@
             if (Array.isArray(value)) {
                 return (value as Array<any>).length === 0;
             }
-            
-            for (var x in value)
-            {
+
+            for (var x in value) {
                 return false;
             }
 
@@ -83,7 +82,15 @@
         return true;
     }
 
-    static isInRange(value:number, min: number, max: number):boolean {
-        return ((value >= min) && (value <= max)); 
+    static isInRange(value: number, min: number, max: number): boolean {
+        return ((value >= min) && (value <= max));
+    }
+
+    static isIpAddress(value: any): boolean {
+        if (Validation.isNullOrEmpty(value))
+            return false;
+
+        // http://www.w3resource.com/javascript/form/ip-address-validation.php
+        return (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(value));
     }
 }
