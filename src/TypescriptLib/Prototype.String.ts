@@ -5,6 +5,7 @@
     startsWith(str: string, ignoreCase?: boolean): boolean;
     endsWith(str: string, ignoreCase?: boolean): boolean;
     contains(str: string, ignoreCase?: boolean): boolean;
+    containsOnly(characters: string, ignoreCase?: boolean): boolean;
     left(length: number): string;
     right(length: number): string;
     shuffle(): string;
@@ -85,6 +86,10 @@ String.prototype.contains = function (str, ignoreCase = false) {
 
     return this.indexOf(str) != -1;
 };
+
+String.prototype.containsOnly = function (characters, ignoreCase=false) {
+    return Validation.containsOnly(this, characters, ignoreCase);
+}
 
 String.prototype.left = function (length) {
     if (length <= 0)

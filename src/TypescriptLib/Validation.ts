@@ -67,7 +67,9 @@
     static containsOnly(value: string, characters: string, ignoreCase: boolean = false): boolean {
         characters = characters.replace('[0-9]', '0123456789')
             .replace('[A-Z]', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-            .replace('[a-z]', 'abcdefghijklmnopqrstuvwxyz');
+            .replace('[a-z]', 'abcdefghijklmnopqrstuvwxyz')
+            .replace('[A-Å]', 'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ')
+            .replace('[a-å]', 'abcdefghijklmnopqrstuvwxyzæøå');
 
         if (ignoreCase) {
             characters = characters.toLowerCase();
