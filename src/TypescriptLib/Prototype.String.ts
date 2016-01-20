@@ -12,7 +12,7 @@
     replaceAll(target: string, replacement: string): string;
     padLeft(length: number, character: string): string;
     padRight(length: number, character: string): string;
-    format(...args: string[]): string;
+    format(...args: any[]): string;
     toDate(): Date;
 }
 
@@ -37,7 +37,7 @@ String.prototype.toDate = function (): Date {
     return new Date(year, month - 1, day);
 }
 
-String.prototype.format = function (...args: string[]) {
+String.prototype.format = function (...args: any[]) {
     return this.replace(/{(\d+)}/g, function (match, number) {
         return typeof args[number] != 'undefined' ? args[number] : match;
     });
