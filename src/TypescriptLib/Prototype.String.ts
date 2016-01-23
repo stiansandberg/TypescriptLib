@@ -2,6 +2,7 @@
     toLower(): string;
     toUpper(): string;
     trim(): string;
+    equals(str: string, ignoreCase?: boolean): boolean;
     startsWith(str: string, ignoreCase?: boolean): boolean;
     endsWith(str: string, ignoreCase?: boolean): boolean;
     contains(str: string, ignoreCase?: boolean): boolean;
@@ -141,4 +142,15 @@ String.prototype.padRight = function (length, character) {
 
 String.prototype.padLeft = function (length, character) {
     return new Array(length - this.length + 1).join(character || ' ') + this;
+}
+
+String.prototype.equals = function (str, ignoreCase = false)
+{
+    var v1: string = (this as string).trim();
+    var v2: string = str.trim();
+
+    if (ignoreCase) {
+        return v1.toLowerCase() === v2.toLowerCase();
+    }
+    return v1 === v2;
 }
