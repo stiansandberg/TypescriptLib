@@ -1,1 +1,4 @@
-# TypescriptLib
+# TypeScriptLib
+
+## Prototypes
+### Array
