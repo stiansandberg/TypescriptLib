@@ -151,7 +151,7 @@
     max(predicate: (item: T) => number): number;
     group(predicate: (item: T) => any): Array<IGroupResult<T>>
 
-# eksempler
+# samples
 
     interface IPerson {
         name: string;
@@ -172,17 +172,17 @@
 
     var persons = getPersons();
 
-    persons.avg(p=> p.age); // gjennomsnitts alder
-    persons.min(p=> p.age); // laveste alder
-    persons.max(p=> p.age); // høyeste alder
-    persons.sum(p=> p.age); // sum alder
+    persons.avg(p=> p.age); // average age
+    persons.min(p=> p.age); // lowest age
+    persons.max(p=> p.age); // highest age
+    persons.sum(p=> p.age); // total age
 
-    persons.first(); // første person i listen
-    persons.last(); // Siste person i listen
+    persons.first(); // first person in list
+    persons.last(); // last person in list
 
-    persons.orderBy(p=> p.name); // sortering
+    persons.orderBy(p=> p.name); // sorting
 
-    persons.count(); // tell alle 
-    persons.count(p=> p.age > 70); // Tell alle over 70 år
-    persons.contains(p=> p.age > 90); // true/false om noen er over 90 år
+    persons.count(); // count all 
+    persons.count(p=> p.age > 70); // Count all above 70 years old
+    persons.contains(p=> p.age > 90); // true/false whether person is more than 90 years old
 
