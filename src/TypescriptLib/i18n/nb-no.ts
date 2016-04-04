@@ -1,16 +1,16 @@
 ﻿module i18n {
 
     name = 'nb-no';
-    
+
     export class Calendar {
-        static firstDayOfWeek = 0;
-        static monthNames = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
-        static weekDays = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
+        static firstDayOfWeek: DayOfWeek = DayOfWeek.Monday;
+        static monthNames: Array<string> = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
+        static weekDays: Array<string> = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
     }
 
     export class Format {
-        static date = 'dd.MM.yyyy';
-        static time = 'HH:mm';
-        static dateTime = 'ss.MM.yyyy HH:mm';
+        static date: string = 'dd.MM.yyyy';
+        static time: string = 'HH:mm';
+        static dateTime: string = 'ss.MM.yyyy HH:mm';
     }
 }

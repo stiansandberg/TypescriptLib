@@ -3,12 +3,12 @@
     export interface IGroupResult<T> {
         value: any;
         count: number;
-        items:Array<T>
+        items: Array<T>
     }
 
     export interface IList<T> {
-        add(item: T);
-        addRange(item: Array<T>);
+        add(item: T): List<T>;
+        addRange(item: Array<T>): List<T>;
         any(predicate?: (item: T) => boolean): boolean;
         insert(index: number, item: T): List<T>;
         first(): T;
@@ -56,7 +56,7 @@
         }
 
         public distinct(): List<T> {
-            var arr= this._items.reduce(function (p, c) {
+            var arr = this._items.reduce(function (p, c) {
                 if (p.indexOf(c) < 0) p.push(c);
                 return p;
             }, []);
@@ -65,7 +65,7 @@
 
         public group(predicate: (item: T) => any): Array<IGroupResult<T>> {
             var result: Array<IGroupResult<T>> = [];
-            
+
             for (var i = 0; i < this._items.length; i++) {
 
                 var item = this._items[i];

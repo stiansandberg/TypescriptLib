@@ -6,21 +6,21 @@
     msecPerDay: number = 86400000;
     msecs: number = 0;
 
-    static FromDates = function (firstDate: Date, secondDate: Date) {
+    static FromDates = function (firstDate: Date, secondDate: Date): TimeSpan {
         var differenceMsecs = secondDate.valueOf() - firstDate.valueOf();
         return new TimeSpan(differenceMsecs, 0, 0, 0, 0);
     };
 
-    static FromSeconds = function (seconds: number) {
+    static FromSeconds = function (seconds: number): TimeSpan {
         return new TimeSpan(0, seconds, 0, 0, 0);
     };
-    static FromMinutes = function (minutes: number) {
+    static FromMinutes = function (minutes: number): TimeSpan {
         return new TimeSpan(0, 0, minutes, 0, 0);
     };
-    static FromHours = function (hours: number) {
+    static FromHours = function (hours: number): TimeSpan {
         return new TimeSpan(0, 0, 0, hours, 0);
     };
-    static FromDays = function (days: number) {
+    static FromDays = function (days: number): TimeSpan {
         return new TimeSpan(0, 0, 0, 0, days);
     };
 
@@ -32,107 +32,107 @@
         this.msecs += milliseconds;
     }
 
-    addMilliseconds(milliseconds: number) {
+    addMilliseconds(milliseconds: number): void {
         this.msecs += milliseconds;
     };
 
-    addSeconds(seconds: number) {
+    addSeconds(seconds: number): void {
         this.msecs += (seconds * this.msecPerSecond);
     };
 
-    addMinutes(minutes: number) {
+    addMinutes(minutes: number): void {
         this.msecs += (minutes * this.msecPerMinute);
     };
 
-    addHours(hours: number) {
+    addHours(hours: number): void {
         this.msecs += (hours * this.msecPerHour);
     };
 
-    addDays(days: number) {
+    addDays(days: number): void {
         this.msecs += (days * this.msecPerDay);
     };
 
-    subtractMilliseconds(milliseconds: number) {
+    subtractMilliseconds(milliseconds: number): void {
         this.msecs -= milliseconds;
     };
 
-    subtractSeconds(seconds: number) {
+    subtractSeconds(seconds: number): void {
         this.msecs -= (seconds * this.msecPerSecond);
     };
 
-    subtractMinutes(minutes: number) {
+    subtractMinutes(minutes: number): void {
         this.msecs -= (minutes * this.msecPerMinute);
     };
 
-    subtractHours(hours: number) {
+    subtractHours(hours: number): void {
         this.msecs -= (hours * this.msecPerHour);
     };
 
-    subtractDays(days: number) {
+    subtractDays(days: number): void {
         this.msecs -= (days * this.msecPerDay);
     };
 
-    add(timespan: TimeSpan) {
+    add(timespan: TimeSpan): void {
         this.msecs += timespan.totalMilliseconds();
     };
-    subtract(timespan: TimeSpan) {
+    subtract(timespan: TimeSpan): void {
         this.msecs -= timespan.totalMilliseconds();
     };
-    equals(timespan: TimeSpan) {
+    equals(timespan: TimeSpan): boolean {
         return this.msecs === timespan.totalMilliseconds();
     };
 
 
-    totalMilliseconds(roundDown: boolean = false) {
-        var result = this.msecs;
+    totalMilliseconds(roundDown: boolean = false): number {
+        var result: number = this.msecs;
         if (roundDown === true) {
             result = Math.floor(result);
         }
         return result;
     };
 
-    totalSeconds(roundDown: boolean = false) {
-        var result = this.msecs / this.msecPerSecond;
+    totalSeconds(roundDown: boolean = false): number {
+        var result: number = this.msecs / this.msecPerSecond;
         if (roundDown === true) {
             result = Math.floor(result);
         }
         return result;
     };
-    totalMinutes(roundDown: boolean = false) {
-        var result = this.msecs / this.msecPerMinute;
+    totalMinutes(roundDown: boolean = false): number {
+        var result: number = this.msecs / this.msecPerMinute;
         if (roundDown === true) {
             result = Math.floor(result);
         }
         return result;
     };
-    totalHours(roundDown: boolean = false) {
-        var result = this.msecs / this.msecPerHour;
+    totalHours(roundDown: boolean = false): number {
+        var result: number = this.msecs / this.msecPerHour;
         if (roundDown === true) {
             result = Math.floor(result);
         }
         return result;
     };
-    totalDays(roundDown: boolean = false) {
-        var result = this.msecs / this.msecPerDay;
+    totalDays(roundDown: boolean = false): number {
+        var result: number = this.msecs / this.msecPerDay;
         if (roundDown === true) {
             result = Math.floor(result);
         }
         return result;
     };
 
-    milliseconds() {
+    milliseconds(): number {
         return this.msecs % 1000;
     };
-    seconds() {
+    seconds(): number {
         return Math.floor(this.msecs / this.msecPerSecond) % 60;
     };
-    minutes() {
+    minutes(): number {
         return Math.floor(this.msecs / this.msecPerMinute) % 60;
     };
-    hours() {
+    hours(): number {
         return Math.floor(this.msecs / this.msecPerHour) % 24;
     };
-    days() {
+    days(): number {
         return Math.floor(this.msecs / this.msecPerDay);
     };
 }

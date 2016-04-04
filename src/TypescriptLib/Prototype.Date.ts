@@ -21,13 +21,13 @@ Date.prototype.isToday = function (): boolean {
     return this.isSameDay(new Date());
 };
 
-Date.prototype.isSameDay = function (otherDate: Date) {
+Date.prototype.isSameDay = function (otherDate: Date): boolean {
     var date1 = this;
     var date2 = otherDate;
     return (date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate());
 };
 
-Date.prototype.addYears = function (years: number) {
+Date.prototype.addYears = function (years: number):Date {
     var date:Date = this.copy();
     var newYear = date.getFullYear() + years;
     date.setFullYear(newYear);

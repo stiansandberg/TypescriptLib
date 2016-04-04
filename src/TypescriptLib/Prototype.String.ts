@@ -16,6 +16,14 @@
     padRight(length: number, character: string): string;
     format(...args: any[]): string;
     toDate(): Date;
+    toInt(): number;
+}
+
+String.prototype.toInt = function (): number {
+    if (!this) {
+        return 0;
+    }
+    return parseInt(this);
 }
 
 String.prototype.toDate = function (): Date {
@@ -39,25 +47,25 @@ String.prototype.toDate = function (): Date {
     return new Date(year, month - 1, day);
 }
 
-String.prototype.format = function (...args: any[]) {
-    return this.replace(/{(\d+)}/g, function (match, number) {
+String.prototype.format = function (...args: any[]): string {
+    return this.replace(/{(\d+)}/g, function (match: any, number: number) {
         return typeof args[number] != 'undefined' ? args[number] : match;
     });
 };
 
-String.prototype.toLower = function () {
+String.prototype.toLower = function (): string {
     return this.toLowerCase();
 }
 
-String.prototype.toUpper = function () {
+String.prototype.toUpper = function (): string {
     return this.toUpperCase();
 }
 
-String.prototype.trim = function () {
+String.prototype.trim = function (): string {
     return this.replace(/^\s+|\s+$/g, "");
 };
 
-String.prototype.startsWith = function (str, ignoreCase = false) {
+String.prototype.startsWith = function (str: string, ignoreCase = false): boolean {
     if (!str)
         return false;
 
@@ -67,7 +75,7 @@ String.prototype.startsWith = function (str, ignoreCase = false) {
     return this.slice(0, str.length) == str;
 };
 
-String.prototype.endsWith = function (suffix, ignoreCase = false) {
+String.prototype.endsWith = function (suffix: string, ignoreCase = false): boolean {
     if (!suffix)
         return false;
 
@@ -77,7 +85,7 @@ String.prototype.endsWith = function (suffix, ignoreCase = false) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
-String.prototype.contains = function (str, ignoreCase = false) {
+String.prototype.contains = function (str: string, ignoreCase = false): boolean {
     if (!str)
         return false;
 
@@ -88,11 +96,11 @@ String.prototype.contains = function (str, ignoreCase = false) {
     return this.indexOf(str) != -1;
 };
 
-String.prototype.containsOnly = function (characters, ignoreCase=false) {
+String.prototype.containsOnly = function (characters: string, ignoreCase = false): boolean {
     return Validation.containsOnly(this, characters, ignoreCase);
 }
 
-String.prototype.left = function (length) {
+String.prototype.left = function (length: number): string {
     if (length <= 0)
         return '';
 
@@ -102,7 +110,7 @@ String.prototype.left = function (length) {
     return this.substr(0, length);
 }
 
-String.prototype.right = function (length) {
+String.prototype.right = function (length: number): string {
     if (length <= 0)
         return '';
 
@@ -113,7 +121,7 @@ String.prototype.right = function (length) {
     return this.substr((this.length - length), this.length);
 }
 
-String.prototype.shuffle = function () {
+String.prototype.shuffle = function (): string {
     var a = this.split('');
     var n = a.length;
 
@@ -126,7 +134,7 @@ String.prototype.shuffle = function () {
     return a.join('');
 };
 
-String.prototype.repeat = function (iterations: number) {
+String.prototype.repeat = function (iterations: number): string {
     if (iterations < 1)
         return '';
     return (new Array(iterations + 1)).join(this);
@@ -136,16 +144,15 @@ String.prototype.replaceAll = function (target: string, replacement: string): st
     return this.split(target).join(replacement);
 };
 
-String.prototype.padRight = function (length, character) {
+String.prototype.padRight = function (length: number, character: string): string {
     return this + new Array(length - this.length + 1).join(character || ' ');
 }
 
-String.prototype.padLeft = function (length, character) {
+String.prototype.padLeft = function (length: number, character: string): string {
     return new Array(length - this.length + 1).join(character || ' ') + this;
 }
 
-String.prototype.equals = function (str, ignoreCase = false)
-{
+String.prototype.equals = function (str: string, ignoreCase = false): boolean {
     var v1: string = (this as string).trim();
     var v2: string = str.trim();
 

@@ -22,17 +22,17 @@ interface Array<T> {
     clone(): Array<T>;
 }
 
-Array.prototype.contains = function (value) {
+Array.prototype.contains = function (value: any): boolean {
     if (!value)
         return false;
     return this.indexOf(value) > -1;
 }
 
-Array.prototype.clone = function () {
+Array.prototype.clone = function ():Array<any> {
     return this.slice(0);
 }
 
-Array.prototype.addRange = function (arr: Array<any>) {
+Array.prototype.addRange = function (arr: Array<any>):Array<any> {
     if (!arr || arr.length === 0)
         return this;
 
@@ -44,7 +44,7 @@ Array.prototype.addRange = function (arr: Array<any>) {
 }
 
 
-Array.prototype.remove = function (value) {
+Array.prototype.remove = function (value): void {
     if (!value)
         return;
 
@@ -54,7 +54,7 @@ Array.prototype.remove = function (value) {
     }
 }
 
-Array.prototype.addOrRemoveIfExists = function (obj) {
+Array.prototype.addOrRemoveIfExists = function (obj):void {
     if (!obj)
         return;
 
@@ -65,7 +65,7 @@ Array.prototype.addOrRemoveIfExists = function (obj) {
     }
 }
 
-Array.prototype.pushIfNotExists = function (obj) {
+Array.prototype.pushIfNotExists = function (obj):void {
     if (!obj)
         return;
 
@@ -75,6 +75,6 @@ Array.prototype.pushIfNotExists = function (obj) {
     this.push(obj);
 }
 
-Array.prototype.toList = function () {
+Array.prototype.toList = function ():Collections.List<any> {
     return new Collections.List(this);
 }

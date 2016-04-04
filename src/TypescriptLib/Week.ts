@@ -1,6 +1,6 @@
 ﻿class Week {
 
-    static ThisWeek() {
+    static ThisWeek(): Week {
         return new Week(new Date());
     }
 
@@ -31,11 +31,11 @@
         return this._dates;
     }
 
-    public getFirstDate() {
+    public getFirstDate(): Date {
         var days = this.getDates();
         return days[0];
     }
-    public getLastDate() {
+    public getLastDate(): Date {
         var days = this.getDates();
         return days[days.length - 1];
     }
@@ -50,7 +50,7 @@
         return new Week(date);
     }
 
-    private _gregdaynumber(year, month, day): number {
+    private _gregdaynumber(year: number, month: number, day: number): number {
         if (month < 3) {
             year--;
             month = month + 12

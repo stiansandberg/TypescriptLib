@@ -19,7 +19,7 @@
     year: number;
     monthNumber: number;
 
-    public getMonthName() {
+    public getMonthName(): string {
         return i18n.Calendar.monthNames[this.monthNumber - 1];
     }
 
@@ -37,7 +37,7 @@
         return this._dates;
     }
 
-    public getPeriod() {
+    public getPeriod(): Period {
         return new Period(this.firstDate(), this.lastDate());
     }
 
@@ -80,11 +80,11 @@
         return month;
     }
 
-    public nextMonth() {
+    public nextMonth(): Month {
         return this.addMonths(1);
     }
 
-    public prevMonth() {
+    public prevMonth(): Month {
         return this.addMonths(-1);
     }
 }

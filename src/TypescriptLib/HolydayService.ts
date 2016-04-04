@@ -38,7 +38,7 @@
             return holydays;
         }
 
-        private _getHolydaysFromCache(year: number) {
+        private _getHolydaysFromCache(year: number): Array<IHolyday> {
             var holydays: Array<IHolyday> = null;
             this._holydayCache.forEach(function (cache) {
                 if (cache.year === year) {
