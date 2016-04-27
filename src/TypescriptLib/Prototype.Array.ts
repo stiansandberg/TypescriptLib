@@ -1,4 +1,6 @@
-﻿if (!Array.prototype.indexOf) {
+﻿/// <reference path="list.ts" />
+
+if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (obj, start) {
         if (!obj)
             return -1;

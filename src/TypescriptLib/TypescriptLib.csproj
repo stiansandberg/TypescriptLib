@@ -83,6 +83,7 @@
     <TypeScriptCompile Include="Test\Week.ts" />
     <TypeScriptCompile Include="TimeSpan.ts" />
     <TypeScriptCompile Include="Validation.ts" />
+    <TypeScriptCompile Include="ValidationService.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\references.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="tsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
