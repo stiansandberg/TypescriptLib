@@ -68,8 +68,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Docs\index.html" />
+    <Content Include="Docs\ValidationService.html" />
     <Content Include="Test\index.html" />
     <TypeScriptCompile Include="CalendarService.ts" />
+    <TypeScriptCompile Include="Docs\app.ts" />
+    <TypeScriptCompile Include="Docs\ValidationServiceController.ts" />
     <TypeScriptCompile Include="i18n\nb-no.ts" />
     <TypeScriptCompile Include="Test\CalendarService.ts" />
     <TypeScriptCompile Include="Test\HolydayService.ts" />
@@ -126,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test\tsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Docs\tsconfig.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

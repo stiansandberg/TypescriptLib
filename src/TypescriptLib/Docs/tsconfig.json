@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "target": "es5",
+    "outFile": "docs.js",
+    "declaration": false 
+  },
+  "compileOnSave": true,
+  "files": [
+    "app.ts",
+    "ValidationServiceController.ts"
+  ]
+}

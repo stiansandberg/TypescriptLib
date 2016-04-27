@@ -1,9 +1,11 @@
 ﻿/// <reference path="validation.ts" />
+
 module TSL.Services {
 
     export interface IValidationService<T> {
         clear(): IValidationService<T>;
         getErrorMessages(): Array<IValidationError>;
+        containsErrors(): boolean;
         required(prop: (item: T) => string | number | Date, errorMessage: string): IValidationService<T>;
         email(prop: (item: T) => string, errorMessage: string): IValidationService<T>;
         range(prop: (item: T) => number, min: number, max: number, errorMessage: string): IValidationService<T>;
@@ -12,10 +14,13 @@ module TSL.Services {
         period(prop: (item: T) => Date, min: Date, max: Date, errorMessage: string): IValidationService<T>;
         minLengt(prop: (item: T) => string, minLength: number, errorMessage: string): IValidationService<T>;
         maxLengt(prop: (item: T) => string, maxLength: number, errorMessage: string): IValidationService<T>;
-        int(prop: (item: T) => string, errorMessage: string): IValidationService<T>;
+        int(prop: (item: T) => number, errorMessage: string): IValidationService<T>;
         containsOnly(prop: (item: T) => string, characters: string, ignoreCase: boolean, errorMessage: string): IValidationService<T>;
-    } 
-      
+        ip(prop: (item: T) => string, errorMessage: string): IValidationService<T>;
+        equals(prop: (item: T) => any, other: (item: T) => any, errorMessage: string): IValidationService<T>;
+        custom(prop: (item: T) => any, func: (value: any) => boolean, errorMessage: string): IValidationService<T>;
+    }
+
     export class ValidationService<T> implements IValidationService<T> {
 
         private errors: Array<IValidationError> = [];
@@ -23,7 +28,7 @@ module TSL.Services {
 
         constructor(obj: T) {
             this.currentObject = obj;
-        } 
+        }
 
         clear() {
             this.errors = [];
@@ -32,6 +37,10 @@ module TSL.Services {
 
         getErrorMessages(): Array<IValidationError> {
             return this.errors;
+        }
+        
+        containsErrors() {
+            return this.getErrorMessages().length > 0;
         }
 
         required(prop: (item: T) => string | number | Date, errorMessage: string) {
@@ -157,19 +166,11 @@ module TSL.Services {
             }
             return this;
         }
-         
-        int(prop: (item: T) => string, errorMessage: string) {
-            let value = this.getPropertyValue(prop);
-            if (Validation.isNullOrEmpty(value)) {
-                return this;
-            }
 
-            if (!Validation.containsOnly(value, '-0123456789')) {
-                this.addValidationError(prop, errorMessage);
-                return this;
-            }
+        int(prop: (item: T) => number, errorMessage: string) {
+          
+            return this.custom(prop, (value) => { return Validation.containsOnly(value, '-0123456789'); }, errorMessage);
 
-            return this;
         }
 
         containsOnly(prop: (item: T) => string, characters: string, ignoreCase: boolean, errorMessage: string) {
@@ -181,6 +182,36 @@ module TSL.Services {
             if (!Validation.containsOnly(value, characters, ignoreCase)) {
                 this.addValidationError(prop, errorMessage);
                 return this;
+            }
+
+            return this;
+        }
+
+        ip(prop: (item: T) => string, errorMessage: string) {
+
+            return this.custom(prop, (value) => { return Validation.isIpAddress(value); }, errorMessage);
+
+        }
+
+        equals(prop: (item: T) => any, other: (item: T) => any, errorMessage: string) {
+            let propValue = this.getPropertyValue(prop);
+            let otherValue = this.getPropertyValue(other);
+
+            if (propValue !== otherValue) {
+                this.addValidationError(prop, errorMessage);
+            }
+
+            return this;
+        }
+
+        custom(prop: (item: T) => any, func: (value: any) => boolean, errorMessage: string) {
+            let value = this.getPropertyValue(prop);
+            if (Validation.isNullOrEmpty(value)) {
+                return this;
+            }
+
+            if (!func(value)) {
+                this.addValidationError(prop, errorMessage);
             }
 
             return this;
