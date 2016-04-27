@@ -1,4 +1,4 @@
-﻿module Services {
+﻿module TSL.Services {
 
     export interface IHolyday {
         description: string;

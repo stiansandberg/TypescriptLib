@@ -19,7 +19,7 @@ interface Array<T> {
     remove(value: T): void;
     addOrRemoveIfExists(value: T): void;
     pushIfNotExists(value: T): void;
-    toList<T>(): Collections.List<T>;
+    toList<T>(): TSL.Collections.List<T>;
     addRange(arr: Array<T>): Array<T>;
     clone(): Array<T>;
 }
@@ -77,6 +77,6 @@ Array.prototype.pushIfNotExists = function (obj):void {
     this.push(obj);
 }
 
-Array.prototype.toList = function ():Collections.List<any> {
-    return new Collections.List(this);
+Array.prototype.toList = function (): TSL.Collections.List<any> {
+    return new TSL.Collections.List(this);
 }

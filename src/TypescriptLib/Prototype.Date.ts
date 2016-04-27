@@ -12,9 +12,9 @@
     parse(format: string): Date;
     getWeekNumber(): number;
     copy(): Date;
-    dayOfWeek(): DayOfWeek;
+    dayOfWeek(): TSL.DayOfWeek;
     isLeapYear(): boolean;
-    getWeek(): Week;
+    getWeek(): TSL.Week;
 }
 
 Date.prototype.isToday = function (): boolean {
@@ -112,15 +112,15 @@ Date.prototype.format = function (format: string): string {
     return format;
 }
 
-Date.prototype.dayOfWeek = function (): DayOfWeek {
+Date.prototype.dayOfWeek = function (): TSL.DayOfWeek {
     var dow = this.getDay();
-    if (dow === 0) return DayOfWeek.Sunday;
-    if (dow === 1) return DayOfWeek.Monday;
-    if (dow === 2) return DayOfWeek.Tuesday;
-    if (dow === 3) return DayOfWeek.Wednesday;
-    if (dow === 4) return DayOfWeek.Thursday;
-    if (dow === 5) return DayOfWeek.Friday;
-    if (dow === 6) return DayOfWeek.Saturday;
+    if (dow === 0) return TSL.DayOfWeek.Sunday;
+    if (dow === 1) return TSL.DayOfWeek.Monday;
+    if (dow === 2) return TSL.DayOfWeek.Tuesday;
+    if (dow === 3) return TSL.DayOfWeek.Wednesday;
+    if (dow === 4) return TSL.DayOfWeek.Thursday;
+    if (dow === 5) return TSL.DayOfWeek.Friday;
+    if (dow === 6) return TSL.DayOfWeek.Saturday;
     return null;
 }
 
@@ -130,9 +130,9 @@ Date.prototype.isLeapYear = function (): boolean {
 }
 
 Date.prototype.getWeekNumber = function (): number {
-    return new Week(this).weekNumber;
+    return new TSL.Week(this).weekNumber;
 }
 
-Date.prototype.getWeek = function (): Week {
-    return new Week(this);
+Date.prototype.getWeek = function (): TSL.Week {
+    return new TSL.Week(this);
 }

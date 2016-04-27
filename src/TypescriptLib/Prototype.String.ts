@@ -97,7 +97,7 @@ String.prototype.contains = function (str: string, ignoreCase = false): boolean 
 };
 
 String.prototype.containsOnly = function (characters: string, ignoreCase = false): boolean {
-    return Validation.containsOnly(this, characters, ignoreCase);
+    return TSL.Validation.containsOnly(this, characters, ignoreCase);
 }
 
 String.prototype.left = function (length: number): string {

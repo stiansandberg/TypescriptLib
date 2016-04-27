@@ -1,4 +1,5 @@
-﻿module i18n {
+﻿/// <reference path="../dayofweek.ts" />
+module TSL.i18n {
 
     name = 'nb-no';
 

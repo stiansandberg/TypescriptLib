@@ -1,4 +1,4 @@
-﻿module Collections {
+﻿module TSL.Collections {
 
     export interface IGroupResult<T> {
         value: any;

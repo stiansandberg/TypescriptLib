@@ -1,4 +1,9 @@
-﻿module Services {
+﻿/// <reference path="list.ts" />
+/// <reference path="holydayservice.ts" />
+/// <reference path="week.ts" />
+/// <reference path="month.ts" />
+
+module TSL.Services {
 
     export interface ICalendarDay {
         date: Date;

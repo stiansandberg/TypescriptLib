@@ -8,25 +8,12 @@
     "outFile": "build/typescriptLib.js",
     "declaration": true
   },
-  "compileOnSave": true, 
-  "files": [
-    "Prototype.Array.ts",
-    "Prototype.String.ts",
-    "Prototype.Date.ts",
-    "Prototype.Number.ts",
-    "DayOfWeek.ts",
-    "i18n/nb-no.ts",
-    "Week.ts",
-    "Month.ts",
-    "Period.ts",
-    "List.ts",
-    "HolydayService.ts",
-    "CalendarService.ts",
-    "TimeSpan.ts",
-    "Validation.ts",
-    "ValidationService.ts"
-  ],
+  "compileOnSave": true,  
   "exclude": [
-    "build/*.ts" 
+    "build",
+    "Test",
+    "_DefinitelyTyped",
+    "node_modules",
+    "wwwroot"
   ]
 }

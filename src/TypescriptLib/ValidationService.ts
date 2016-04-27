@@ -1,4 +1,5 @@
-﻿module Services {
+﻿/// <reference path="validation.ts" />
+module TSL.Services {
 
     export interface IValidationService<T> {
         clear(): IValidationService<T>;
