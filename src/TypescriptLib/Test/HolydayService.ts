@@ -3,7 +3,7 @@
 
 QUnit.module('Holydays');
 
-var hs = new Services.HolydayService();
+var hs = new TSL.Services.HolydayService();
 
 QUnit.test('Easter', function (a: QUnitAssert) {
 
@@ -23,7 +23,7 @@ function validateHolydays(assert: QUnitAssert, year: number, skjærtorsdag: stri
     kristiHimelfart += '.' + year.toString();
     andrePinsedag += '.' + year.toString();
 
-    var list = new Collections.List<Services.IHolyday>(hs.getHolydays(year));
+    var list = new TSL.Collections.List<TSL.Services.IHolyday>(hs.getHolydays(year));
     assert.ok(list.singleOrDefault(h=> h.date.format('dd.MM.yyyy') == skjærtorsdag).description === 'Skjærtorsdag', skjærtorsdag + ' Skjærtorsdag');
     assert.ok(list.singleOrDefault(h=> h.date.format('dd.MM.yyyy') == andrePåskedag).description === 'Andre påskedag', andrePåskedag + ' Andre påskedag');
     assert.ok(list.singleOrDefault(h=> h.date.format('dd.MM.yyyy') == kristiHimelfart).description === 'Kristi himmelfartsdag', kristiHimelfart + ' Kristi himmelfartsdag');

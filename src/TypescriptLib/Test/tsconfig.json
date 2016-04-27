@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "target": "es5",
+    "outFile": "test.js",
+    "declaration": false 
+  },
+  "compileOnSave": true,
+  "files": [
+    "CalendarService.ts",
+    "HolydayService.ts",
+    "List.ts",
+    "Month.ts",
+    "Prototypes.Date.ts",
+    "Prototypes.Number.ts",
+    "Prototypes.String.ts",
+    "Timespan.ts",
+    "Validation.ts",
+    "Week.ts"
+  ]
+}

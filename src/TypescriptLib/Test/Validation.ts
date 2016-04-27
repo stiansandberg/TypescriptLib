@@ -10,12 +10,12 @@ QUnit.test('isNullOrEmpty', (a: QUnitAssert) => {
 
     var i = 0;
     for (i = 0; i < nullValues.length; i++) {
-        a.equal(Validation.isNullOrEmpty(nullValues[i]), true);
+        a.equal(TSL.Validation.isNullOrEmpty(nullValues[i]), true);
     }
 
     i = 0;
     for (i = 0; i < notNullValues.length; i++) {
-        a.equal(Validation.isNullOrEmpty(notNullValues[i]), false);
+        a.equal(TSL.Validation.isNullOrEmpty(notNullValues[i]), false);
     }
 });
 
@@ -25,12 +25,12 @@ QUnit.test('isEmail', function (a: QUnitAssert) {
 
     var i = 0;
     for (i = 0; i < validEmail.length; i++) {
-        a.equal(Validation.isEmail(validEmail[i]), true);
+        a.equal(TSL.Validation.isEmail(validEmail[i]), true);
     }
 
     i = 0;
     for (i = 0; i < invalidEmail.length; i++) {
-        a.equal(Validation.isEmail(invalidEmail[i]), false);
+        a.equal(TSL.Validation.isEmail(invalidEmail[i]), false);
     }
 });
 
@@ -40,12 +40,12 @@ QUnit.test('isFloat', (a: QUnitAssert) => {
 
     var i = 0;
     for (i = 0; i < validFloats.length; i++) {
-        a.equal(Validation.isNumber(validFloats[i]), true);
+        a.equal(TSL.Validation.isNumber(validFloats[i]), true);
     }
 
     i = 0;
     for (i = 0; i < invalidFloats.length; i++) {
-        a.equal(Validation.isNumber(invalidFloats[i]), false);
+        a.equal(TSL.Validation.isNumber(invalidFloats[i]), false);
     }
 });
 
@@ -55,28 +55,28 @@ QUnit.test('isInt', (a: QUnitAssert) => {
 
     var i = 0;
     for (i = 0; i < validInts.length; i++) {
-        a.equal(Validation.isInt(validInts[i]), true);
+        a.equal(TSL.Validation.isInt(validInts[i]), true);
     }
 
     i = 0;
     for (i = 0; i < invalidInts.length; i++) {
-        a.equal(Validation.isInt(invalidInts[i]), false);
+        a.equal(TSL.Validation.isInt(invalidInts[i]), false);
     }
 });
 
 QUnit.test('containsOnly', (a: QUnitAssert) => {
-    a.equal(Validation.containsOnly('stian', '[a-z]'), true);
-    a.equal(Validation.containsOnly('stian', 'naits'), true);
-    a.equal(Validation.containsOnly('stian', '[A-Z]'), false);
-    a.equal(Validation.containsOnly('stian', '[A-Z]', true), true);
+    a.equal(TSL.Validation.containsOnly('stian', '[a-z]'), true);
+    a.equal(TSL.Validation.containsOnly('stian', 'naits'), true);
+    a.equal(TSL.Validation.containsOnly('stian', '[A-Z]'), false);
+    a.equal(TSL.Validation.containsOnly('stian', '[A-Z]', true), true);
 });
 
 QUnit.test('isInrange', (a: QUnitAssert) => {
     
-    a.equal(Validation.isInRange(1, 1, 1), true);
-    a.equal(Validation.isInRange(1, 1.1, 1), false);
-    a.equal(Validation.isInRange(1.1, 1.0, 1.1), true);
-    a.equal(Validation.isInRange(-1, -1.1, -0.9), true);
+    a.equal(TSL.Validation.isInRange(1, 1, 1), true);
+    a.equal(TSL.Validation.isInRange(1, 1.1, 1), false);
+    a.equal(TSL.Validation.isInRange(1.1, 1.0, 1.1), true);
+    a.equal(TSL.Validation.isInRange(-1, -1.1, -0.9), true);
 
 });
 
@@ -88,12 +88,12 @@ QUnit.test('isIpAddress', (a: QUnitAssert) => {
 
     var i = 0;
     for (i = 0; i < validIps.length; i++) {
-        a.equal(Validation.isIpAddress(validIps[i]), true);
+        a.equal(TSL.Validation.isIpAddress(validIps[i]), true);
     }
 
     i = 0;
     for (i = 0; i < invalidIps.length; i++) {
-        a.equal(Validation.isIpAddress(invalidIps[i]), false);
+        a.equal(TSL.Validation.isIpAddress(invalidIps[i]), false);
     }
 
 });

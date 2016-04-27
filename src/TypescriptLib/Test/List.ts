@@ -1,4 +1,5 @@
-﻿QUnit.module('List<T>');
+﻿/// <reference path="../list.ts" />
+QUnit.module('List<T>');
 
 interface IPerson {
     name: string;
@@ -7,8 +8,8 @@ interface IPerson {
 }
 
 
-function getPersons(): Collections.List<IPerson> {
-    var personList = new Collections.List<IPerson>();
+function getPersons(): TSL.Collections.List<IPerson> {
+    var personList = new TSL.Collections.List<IPerson>();
     personList.add({ name: 'aa', age: 15, birthdate: new Date().addYears(-15) });
     personList.add({ name: 'bb', age: 3, birthdate: new Date().addYears(-3) });
     personList.add({ name: 'cc', age: 28, birthdate: new Date().addYears(-28) });
@@ -79,11 +80,11 @@ QUnit.test('sum/avg', function (a: QUnitAssert) {
     a.ok(listAvg === loopAvg, 'avg age was ' + listAvg);
 
 
-    var numbers = new Collections.List<number>([1, 2, 3]);
+    var numbers = new TSL.Collections.List<number>([1, 2, 3]);
     a.ok(numbers.avg(n=> n) === 2);
     a.ok(numbers.sum(n=> n) === 6);
 
-    numbers = new Collections.List<number>([1, 2, 3, 4]);
+    numbers = new TSL.Collections.List<number>([1, 2, 3, 4]);
     a.ok(numbers.avg(n=> n) === 2.5);
 });
 
@@ -93,13 +94,13 @@ QUnit.test('min/max', function (a: QUnitAssert) {
     a.ok(persons.min(p=> p.age) === 3, 'min age expected 3 was ' + persons.min(p=> p.age));
     a.ok(persons.max(p=> p.age) === 78, 'max age expected 78 was ' + persons.max(p=> p.age));
 
-    var numbers = new Collections.List<number>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    var numbers = new TSL.Collections.List<number>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     a.ok(numbers.min(n=> n) === 1);
     a.ok(numbers.max(n=> n) === 9);
 });
 
 QUnit.test('add', function (a: QUnitAssert) {
-    var personList = new Collections.List<IPerson>();
+    var personList = new TSL.Collections.List<IPerson>();
     a.ok(personList.add({ name: 'aa', age: 5 }).count() === 1);
     a.ok(personList.add({ name: 'bb', age: 13 }).count() === 2);
     a.ok(personList.add({ name: 'cc', age: 28 }).count() === 3);
@@ -108,7 +109,7 @@ QUnit.test('add', function (a: QUnitAssert) {
 });
 
 QUnit.test('addRange', function (a: QUnitAssert) {
-    var personList = new Collections.List<IPerson>();
+    var personList = new TSL.Collections.List<IPerson>();
     var persons: Array<IPerson> = [];
     persons.push({ name: 'ff', age: 5 + 7 });
     persons.push({ name: 'gg', age: 13 + 7 });

@@ -101,9 +101,9 @@ QUnit.test('copy', function (a: QUnitAssert) {
 });
 
 QUnit.test('dayOfWeek', function (a: QUnitAssert) {
-    a.ok(birthdate.dayOfWeek() === DayOfWeek.Tuesday);
-    a.ok(new Date(1977, 1, 15).dayOfWeek() == DayOfWeek.Tuesday);
-    a.ok(new Date(2015, 10, 9).dayOfWeek() == DayOfWeek.Monday);
+    a.ok(birthdate.dayOfWeek() === TSL.DayOfWeek.Tuesday);
+    a.ok(new Date(1977, 1, 15).dayOfWeek() == TSL.DayOfWeek.Tuesday);
+    a.ok(new Date(2015, 10, 9).dayOfWeek() == TSL.DayOfWeek.Monday);
 });
 
 QUnit.test('isLeapYear', function (a: QUnitAssert) {

@@ -8,7 +8,7 @@
     "outFile": "build/typescriptLib.js",
     "declaration": true
   },
-  "compileOnSave": true,  
+  "compileOnSave": true,
   "exclude": [
     "build",
     "Test",

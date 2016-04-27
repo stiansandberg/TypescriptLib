@@ -1,6 +1,6 @@
 ﻿QUnit.module('Week');
 
-var hs = new Services.HolydayService();
+var hs = new TSL.Services.HolydayService();
 
 QUnit.test('Weeknumber', function (a: QUnitAssert) {
 
@@ -15,18 +15,18 @@ QUnit.test('Weeknumber', function (a: QUnitAssert) {
     test1987(a);    
 
     var end = new Date();
-    var timeTaken = TimeSpan.FromDates(start, end).totalMilliseconds();
+    var timeTaken = TSL.TimeSpan.FromDates(start, end).totalMilliseconds();
 
     console.log('Weeknumber test done in {0} ms'.format(timeTaken.toString()));
     console.log('Did {0} weeknumbers pr ms'.format((2271 / timeTaken).round().toString()));
 
 
-    var week = new Week(new Date(2015, 11, 31));
+    var week = new TSL.Week(new Date(2015, 11, 31));
     a.equal(week.weekNumber, 53);
     a.equal(week.addWeeks(1).weekNumber, 1);
     a.equal(week.addWeeks(2).weekNumber, 2);
 
-    week = new Week(new Date(2016, 0, 7));
+    week = new TSL.Week(new Date(2016, 0, 7));
     a.equal(week.weekNumber, 1);
     a.equal(week.addWeeks(-1).weekNumber, 53);
 });
