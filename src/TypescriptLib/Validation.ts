@@ -1,4 +1,5 @@
 ﻿module TSL {
+
     export class Validation {
 
         static isNullOrEmpty(value: any): boolean {

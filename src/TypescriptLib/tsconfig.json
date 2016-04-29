@@ -6,7 +6,8 @@
     "sourceMap": true,
     "target": "es5",
     "outFile": "build/typescriptLib.js",
-    "declaration": true
+    "declaration": true,
+    "allowUnreachableCode": false    
   },
   "compileOnSave": true,
   "exclude": [
@@ -14,6 +15,7 @@
     "Test",
     "_DefinitelyTyped",
     "node_modules",
-    "wwwroot"
+    "wwwroot",
+    "Docs"
   ]
 }

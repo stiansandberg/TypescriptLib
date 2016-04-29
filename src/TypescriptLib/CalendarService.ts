@@ -10,9 +10,23 @@ module TSL.Services {
         holydays: Array<Services.IHolyday>;
     }
 
-    export class CalendarService {
+    export interface ICalendarService {
+        getCalendar(year: number, month: number): Calendar;
+    }
 
-        holydayService: Services.HolydayService = null;
+    export interface ICalendar {
+        year: number;
+        month: number;
+        weeks: Array<IWeek>;
+        dates: Array<ICalendarDay>;
+        preDates: Array<ICalendarDay>;
+        postDates: Array<ICalendarDay>;
+        getMonth(): IMonth;
+    }
+
+    export class CalendarService implements ICalendarService {
+
+        private holydayService: Services.HolydayService = null;
 
         constructor() {
             this.holydayService = new Services.HolydayService();
@@ -42,7 +56,7 @@ module TSL.Services {
             if (maxYear !== year) {
                 holydayList.addRange(this.holydayService.getHolydays(maxYear));
             }
-            
+
             for (var w = 0; w < calendar.weeks.length; w++) {
                 var week = calendar.weeks[w];
                 var weekDates = week.getDates();
@@ -50,12 +64,12 @@ module TSL.Services {
                     var date = weekDates[d];
 
                     if (date.getMonth() === month - 1) {
-                        calendar.dates.push({ date: date, holydays: holydayList.where(h=> h.date.isSameDay(date)).toArray() });
+                        calendar.dates.push({ date: date, holydays: holydayList.where(h => h.date.isSameDay(date)).toArray() });
                     } else {
                         if (date < firstDayOfMonth) {
-                            calendar.preDates.push({ date: date, holydays: holydayList.where(h=> h.date.isSameDay(date)).toArray() });
+                            calendar.preDates.push({ date: date, holydays: holydayList.where(h => h.date.isSameDay(date)).toArray() });
                         } else {
-                            calendar.postDates.push({ date: date, holydays: holydayList.where(h=> h.date.isSameDay(date)).toArray() });
+                            calendar.postDates.push({ date: date, holydays: holydayList.where(h => h.date.isSameDay(date)).toArray() });
                         }
                     }
 
@@ -66,15 +80,15 @@ module TSL.Services {
         }
     }
 
-    export class Calendar {
+    export class Calendar implements ICalendar {
         year: number;
         month: number;
-        weeks: Array<Week> = [];
+        weeks: Array<IWeek> = [];
         dates: Array<ICalendarDay> = [];
         preDates: Array<ICalendarDay> = [];
         postDates: Array<ICalendarDay> = [];
 
-        getMonth(): Month {
+        getMonth(): IMonth {
             return new Month(this.year, this.month);
         }
     }

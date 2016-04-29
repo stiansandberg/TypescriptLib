@@ -1,6 +1,14 @@
 ﻿/// <reference path="timespan.ts" />
 module TSL {
-    export  class Period {
+
+    export interface IPeriod {
+        start: Date;
+        end: Date;
+        getTimeSpan(): ITimeSpan;
+        isInPeriod(value: Date): boolean;
+    }
+
+    export class Period implements IPeriod {
         constructor(start: Date, end: Date) {
             this.start = start;
             this.end = end;
@@ -9,7 +17,7 @@ module TSL {
         start: Date;
         end: Date;
 
-        getTimeSpan(): TimeSpan {
+        getTimeSpan(): ITimeSpan {
             return TimeSpan.FromDates(this.start, this.end);
         }
 

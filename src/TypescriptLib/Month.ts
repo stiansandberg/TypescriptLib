@@ -1,7 +1,22 @@
 ﻿/// <reference path="period.ts" />
 /// <reference path="i18n/nb-no.ts" />
 module TSL {
-    export   class Month {
+
+    export interface IMonth {
+        year: number;
+        monthNumber: number;
+        getMonthName(): string;
+
+        getDates(): Array<Date>;
+        getPeriod(): IPeriod;
+        firstDate(): Date;
+        lastDate(): Date;
+        addMonths(value: number): IMonth;
+        nextMonth(): IMonth;
+        prevMonth(): IMonth;
+    }
+
+    export class Month implements IMonth {
 
         static Now(): Month {
             var now = new Date();
@@ -54,7 +69,7 @@ module TSL {
             return days[days.length - 1];
         }
 
-        public addMonths = function (value: number): Month {
+        public addMonths = (value: number): Month => {
             var month = new Month(this.year, this.monthNumber);
 
             if (value === 0)

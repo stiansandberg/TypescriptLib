@@ -5,7 +5,11 @@
         date: Date;
     }
 
-    export class HolydayService {
+    export interface IHolydayService {
+        getHolydays(year: number): Array<IHolyday>;
+    }
+
+    export class HolydayService implements IHolydayService{
 
         _holydayCache: any[] = [];
 

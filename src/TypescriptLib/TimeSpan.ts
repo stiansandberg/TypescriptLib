@@ -1,5 +1,32 @@
 ﻿module TSL {
-    export   class TimeSpan {
+
+    export interface ITimeSpan {
+        addMilliseconds(milliseconds: number): void;
+        addSeconds(seconds: number): void;
+        addMinutes(minutes: number): void;
+        addHours(hours: number): void;
+        addDays(days: number): void;
+        subtractMilliseconds(milliseconds: number): void;
+        subtractSeconds(seconds: number): void;
+        subtractMinutes(minutes: number): void;
+        subtractHours(hours: number): void;
+        subtractDays(days: number): void;
+        add(timespan: TimeSpan): void;
+        subtract(timespan: TimeSpan): void;
+        equals(timespan: TimeSpan): boolean;
+        totalMilliseconds(roundDown: boolean): number;
+        totalSeconds(roundDown?: boolean): number;
+        totalMinutes(roundDown?: boolean): number;
+        totalHours(roundDown?: boolean): number;
+        totalDays(roundDown?: boolean): number;
+        milliseconds(): number;
+        seconds(): number;
+        minutes(): number;
+        hours(): number;
+        days(): number;
+    }
+
+    export class TimeSpan implements ITimeSpan {
 
         msecPerSecond: number = 1000;
         msecPerMinute: number = 60000;

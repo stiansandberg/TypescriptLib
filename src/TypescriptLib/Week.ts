@@ -1,7 +1,17 @@
 ﻿module TSL {
-    export  class Week {
 
-        static ThisWeek(): Week {
+    export interface IWeek {
+        weekNumber: number;
+        getDates(): Array<Date>;
+        getFirstDate(): Date;
+        getLastDate(): Date;
+        getPeriod(): IPeriod;
+        addWeeks(weeks: number): IWeek;
+    }
+
+    export class Week implements IWeek{
+
+        static ThisWeek(): IWeek {
             return new Week(new Date());
         }
 
@@ -36,16 +46,17 @@
             var days = this.getDates();
             return days[0];
         }
+
         public getLastDate(): Date {
             var days = this.getDates();
             return days[days.length - 1];
         }
 
-        public getPeriod(): Period {
+        public getPeriod(): IPeriod {
             return new Period(this.getFirstDate(), this.getLastDate());
         }
 
-        public addWeeks(weeks: number): Week {
+        public addWeeks(weeks: number): IWeek {
             var dates = this.getDates();
             var date = dates[3].addDays(weeks * 7);
             return new Week(date);

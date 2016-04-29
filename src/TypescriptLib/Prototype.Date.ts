@@ -14,7 +14,7 @@
     copy(): Date;
     dayOfWeek(): TSL.DayOfWeek;
     isLeapYear(): boolean;
-    getWeek(): TSL.Week;
+    getWeek(): TSL.IWeek;
 }
 
 Date.prototype.isToday = function (): boolean {
@@ -133,6 +133,6 @@ Date.prototype.getWeekNumber = function (): number {
     return new TSL.Week(this).weekNumber;
 }
 
-Date.prototype.getWeek = function (): TSL.Week {
+Date.prototype.getWeek = function (): TSL.IWeek {
     return new TSL.Week(this);
 }

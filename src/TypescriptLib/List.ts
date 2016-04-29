@@ -7,27 +7,27 @@
     }
 
     export interface IList<T> {
-        add(item: T): List<T>;
-        addRange(item: Array<T>): List<T>;
+        add(item: T): IList<T>;
+        addRange(item: Array<T>): IList<T>;
         any(predicate?: (item: T) => boolean): boolean;
-        insert(index: number, item: T): List<T>;
+        insert(index: number, item: T): IList<T>;
         first(): T;
         firstOrDefault(predicate?: (item: T) => boolean): T;
         singleOrDefault(predicate?: (item: T) => boolean): T;
         last(): T;
-        remove(predicate?: (item: T) => boolean): List<T>;
-        removeAt(index: number): List<T>;
-        where(predicate?: (item: T) => boolean): List<T>;
-        take(count: number): List<T>;
-        forEach(action: (item: T) => void): List<T>;
-        orderBy(selector: (item: T) => any): List<T>;
-        orderByDescending(selector: (item: T) => any): List<T>;
-        offset(startIndex: number, count: number): List<T>;
+        remove(predicate?: (item: T) => boolean): IList<T>;
+        removeAt(index: number): IList<T>;
+        where(predicate?: (item: T) => boolean): IList<T>;
+        take(count: number): IList<T>;
+        forEach(action: (item: T) => void): IList<T>;
+        orderBy(selector: (item: T) => any): IList<T>;
+        orderByDescending(selector: (item: T) => any): IList<T>;
+        offset(startIndex: number, count: number): IList<T>;
         toArray(): Array<T>;
         contains(predicate?: (item: T) => boolean): boolean;
         count(predicate?: (item: T) => boolean): number;
-        copy(): List<T>;
-        distinct(): List<T>;
+        copy(): IList<T>;
+        distinct(): IList<T>;
         clear(): void;
         sum(predicate: (item: T) => number): number;
         avg(predicate: (item: T) => number): number;
@@ -55,7 +55,7 @@
             return false;
         }
 
-        public distinct(): List<T> {
+        public distinct(): IList<T> {
             var arr = this._items.reduce(function (p, c) {
                 if (p.indexOf(c) < 0) p.push(c);
                 return p;
@@ -135,19 +135,19 @@
             return Math.max.apply(null, values);
         }
 
-        public add(item: T): List<T> {
+        public add(item: T): IList<T> {
             this._items.push(item);
             return this;
         }
 
-        public addRange(items: Array<T>): List<T> {
+        public addRange(items: Array<T>): IList<T> {
             for (var i = 0; i < items.length; ++i) {
                 this.add(items[i]);
             }
             return this;
         }
 
-        public insert(index: number, item: T): List<T> {
+        public insert(index: number, item: T): IList<T> {
             if (this._items.length < index + 1) {
                 this._items.push(item);
                 return this;
@@ -174,7 +174,7 @@
             return this._items[this._items.length - 1];
         }
 
-        public take(count: number): List<T> {
+        public take(count: number): IList<T> {
             if (this._items.length <= count) {
                 return this;
             }
@@ -186,7 +186,7 @@
             return new List<T>(topNArray);
         }
 
-        public offset(startIndex: number, count: number): List<T> {
+        public offset(startIndex: number, count: number): IList<T> {
             var topNArray = [];
             for (var i = startIndex; i <= (count + startIndex - 1); i++) {
                 topNArray.push(this._items[i]);
@@ -194,7 +194,7 @@
             return new List<T>(topNArray);
         }
 
-        public remove(predicate?: (item: T) => boolean): List<T> {
+        public remove(predicate?: (item: T) => boolean): IList<T> {
 
             var newItems = [];
             for (var i = 0; i < this._items.length; i++) {
@@ -206,7 +206,7 @@
             return this;
         }
 
-        public removeAt(index: number): List<T> {
+        public removeAt(index: number): IList<T> {
             if (this._items.length < index + 1) {
                 return this;
             }
@@ -215,7 +215,7 @@
             return this;
         }
 
-        public where(predicate?: (item: T) => boolean): List<T> {
+        public where(predicate?: (item: T) => boolean): IList<T> {
             var returnlist: List<T> = new List<T>();
             for (var i = 0; i < this._items.length; i++) {
                 if (predicate(this._items[i])) {
@@ -225,14 +225,14 @@
             return returnlist;
         }
 
-        public forEach(action: (item: T) => void): List<T> {
+        public forEach(action: (item: T) => void): IList<T> {
             for (var i = 0; i < this._items.length; i++) {
                 action(this._items[i]);
             }
             return this;
         }
 
-        public orderBy(selector: (item: T) => any): List<T> {
+        public orderBy(selector: (item: T) => any): IList<T> {
             var comparer = (a: T, b: T) => {
                 if (selector(a) > selector(b)) {
                     return 1;
@@ -247,7 +247,7 @@
             return this;
         }
 
-        public orderByDescending(selector: (item: T) => any): List<T> {
+        public orderByDescending(selector: (item: T) => any): IList<T> {
 
             var comparer = (a: T, b: T) => {
                 if (selector(a) < selector(b)) {
@@ -290,7 +290,7 @@
         }
 
         public firstOrDefault(predicate?: (item: T) => boolean): T {
-            var items = this.where(predicate);
+            var items = this.where(predicate) as List<T>;
             if (items._items.length == 0) {
                 return null;
             }
@@ -298,7 +298,7 @@
         }
 
         public singleOrDefault(predicate?: (item: T) => boolean): T {
-            var items = this.where(predicate);
+            var items = this.where(predicate) as List<T>;
 
             if (items._items.length > 1) {
                 throw 'predicate returned more than one item';
@@ -310,7 +310,7 @@
             return items.first();
         }
 
-        public copy(): List<T> {
+        public copy(): IList<T> {
             return new List<T>(this._items);
         }
 
