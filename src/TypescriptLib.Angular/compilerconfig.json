@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "components/tabset/tabset.css",
+    "inputFile": "components/tabset/tabset.scss",
+    "minify": { "enabled": false }
+
+  },
+  {
+    "outputFile": "components/accordion/accordion.css",
+    "inputFile": "components/accordion/accordion.scss",
+    "minify": { "enabled": false }
+
+  }
+]

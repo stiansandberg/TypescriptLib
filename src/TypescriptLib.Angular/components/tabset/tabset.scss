@@ -1,0 +1,36 @@
+﻿$tabs-base-color: #ccc;
+$tabs-padding: 20px;
+.tslTabs {
+
+    ul {
+        height: 30px;
+        background-color: $tabs-base-color;
+        padding: 0;
+        margin: 0;
+
+        li {
+            background-color: $tabs-base-color;
+            float: left;
+            display: block;
+            cursor: pointer;
+            padding: 0 $tabs-padding 0 $tabs-padding;
+            margin: 0;
+            line-height: 30px;
+            vertical-align:middle;
+
+            &.tslTabs-selected, &:hover {
+                background-color: darken($tabs-base-color, 15);
+                font-weight: bold;
+            }
+        }
+    }
+
+    .tslTabs-content {
+        margin: 0;
+        padding: $tabs-padding;
+        z-index: 2;
+        overflow: hidden;
+        width: 100%;
+        background: darken($tabs-base-color, 15);
+    }
+}
