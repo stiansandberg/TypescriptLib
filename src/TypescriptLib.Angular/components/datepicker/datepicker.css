@@ -1,0 +1,49 @@
+﻿.tslDatepicker {
+  position: relative;
+  display: inline;
+  padding: 0;
+  margin: 0; }
+  .tslDatepicker table.ng-hide {
+    -webkit-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
+    -moz-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
+    -ms-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
+    -o-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
+    transform: perspective(400) rotate3d(1, 0, 0, -90deg); }
+  .tslDatepicker table {
+    -webkit-transform: perspective(400) rotate3d(0, 0, 0, 0);
+    -moz-transform: perspective(400) rotate3d(0, 0, 0, 0);
+    -ms-transform: perspective(400) rotate3d(0, 0, 0, 0);
+    -o-transform: perspective(400) rotate3d(0, 0, 0, 0);
+    transform: perspective(400) rotate3d(0, 0, 0, 0);
+    -webkit-transform-origin: 50% 0;
+    -moz-transform-origin: 50% 0;
+    -ms-transform-origin: 50% 0;
+    -o-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    -webkit-transition: 200ms;
+    -moz-transition: 200ms;
+    -o-transition: 200ms;
+    transition: 200ms;
+    position: absolute;
+    top: 30px;
+    left: 1px;
+    z-index: 9000;
+    background-color: #fff;
+    border: solid 1px #ccc;
+    width: 300px; }
+    .tslDatepicker table th {
+      text-align: center; }
+    .tslDatepicker table td, .tslDatepicker table th {
+      width: 12.5%; }
+    .tslDatepicker table td {
+      text-align: center;
+      cursor: pointer; }
+      .tslDatepicker table td:hover {
+        background-color: #4cff00; }
+    .tslDatepicker table .weeknumber {
+      color: #096; }
+    .tslDatepicker table .holyday {
+      color: red; }
+    .tslDatepicker table .weekend {
+      background-color: #ccc; }
+

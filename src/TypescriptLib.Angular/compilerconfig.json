@@ -3,12 +3,10 @@
     "outputFile": "components/tabset/tabset.css",
     "inputFile": "components/tabset/tabset.scss",
     "minify": { "enabled": false }
-
   },
   {
-    "outputFile": "components/accordion/accordion.css",
-    "inputFile": "components/accordion/accordion.scss",
+    "outputFile": "components/datepicker/datepicker.css",
+    "inputFile": "components/datepicker/datepicker.scss",
     "minify": { "enabled": false }
-
   }
 ]

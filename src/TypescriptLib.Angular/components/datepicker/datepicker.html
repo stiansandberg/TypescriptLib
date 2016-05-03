@@ -1,0 +1,32 @@
+﻿<div class="tslDatepicker" ng-click="dp.datepickerClick($event, this)">
+
+    <input type="text" value="{{dp.date.format('dd.MM.yyyy')}}" ng-click="dp.showCalendar()" />
+
+    <table ng-show="dp.calendarVisible">
+        <thead>
+            <tr>
+                <th><a ng-click="dp.navigateMonth(-1)" class="btn btn-xs">prev</a></th>
+                <th colspan="6">
+                    {{dp.calendar.getMonth().getMonthName()}} {{dp.calendar.year}}
+                </th>
+                <th><a ng-click="dp.navigateMonth(+1)" class="btn btn-xs">next</a></th>
+            </tr>
+            <tr>
+                <th ng-repeat="header in ['uke','man','tirs','ons','tors','fre','lør','søn']">
+                    {{header}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="week in dp.calendar.weeks">
+                <td class="weeknumber">{{week.weekNumber}}</td>
+                <td ng-repeat="date in week._dates"
+                    ng-click="dp.select(date)"
+                    ng-class="{'holyday': (dp.getHolidays(date).length > 0),'weekend': ($index > 4) }">
+                    {{date.format('dd')}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

@@ -68,9 +68,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="components\datepicker\datepicker.css">
+      <DependentUpon>datepicker.scss</DependentUpon>
+    </Content>
+    <Content Include="components\datepicker\datepicker.html" />
     <Content Include="packages.config" />
     <Content Include="lib\typescriptLib.js.map" />
     <Content Include="tsconfig.json" />
+    <Content Include="components\datepicker\datepicker.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -96,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="components\datepicker\datepicker.ts" />
     <TypeScriptCompile Include="components\email\email.ts" />
     <TypeScriptCompile Include="components\tabset\tabset.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\angular-ui-router\angular-ui-router.d.ts" />

@@ -1,5 +1,6 @@
 ﻿$tabs-base-color: #ccc;
 $tabs-padding: 20px;
+
 .tslTabs {
 
     ul {
@@ -16,7 +17,7 @@ $tabs-padding: 20px;
             padding: 0 $tabs-padding 0 $tabs-padding;
             margin: 0;
             line-height: 30px;
-            vertical-align:middle;
+            vertical-align: middle;
 
             &.tslTabs-selected, &:hover {
                 background-color: darken($tabs-base-color, 15);
@@ -34,3 +35,4 @@ $tabs-padding: 20px;
         background: darken($tabs-base-color, 15);
     }
 }
+
