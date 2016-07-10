@@ -1,0 +1,22 @@
+﻿.tslTabset ul.tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+  .tslTabset ul.tabs li {
+    display: inline-block;
+    padding: 9px 12px;
+    border-color: #ddd;
+    margin-bottom: -1px; }
+    .tslTabset ul.tabs li.selected {
+      border-width: 3px 1px 0 1px;
+      border-style: solid;
+      border-top-color: #69c;
+      background-color: white; }
+    .tslTabset ul.tabs li:hover {
+      cursor: pointer;
+      text-decoration: underline; }
+
+.tslTabset .tab {
+  border: 1px solid #ddd;
+  padding: 10px 16px; }
+
