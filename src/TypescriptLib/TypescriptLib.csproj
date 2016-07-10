@@ -76,9 +76,6 @@
     <TypeScriptCompile Include="_DefinitelyTyped\references.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="DayOfWeek.ts" />
     <TypeScriptCompile Include="HolydayService.ts" />
     <TypeScriptCompile Include="List.ts" />
@@ -109,7 +106,9 @@
   <ItemGroup>
     <Content Include="tsconfig.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
