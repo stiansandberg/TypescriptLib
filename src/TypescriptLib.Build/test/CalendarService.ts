@@ -1,10 +1,6 @@
-﻿/// <reference path="../_definitelytyped/angularjs/angular.d.ts" />
-/// <reference path="../prototype.array.ts" />
-/// <reference path="../prototype.date.ts" />
-/// <reference path="../prototype.number.ts" />
-/// <reference path="../prototype.string.ts" />
+﻿/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
 /// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
-/// <reference path="../calendarservice.ts" />
+/// <reference path="../_definitelytyped/angularjs/angular.d.ts" />
 
 QUnit.module('Calendar');
 

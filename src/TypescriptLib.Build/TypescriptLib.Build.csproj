@@ -10,13 +10,13 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6C9D1BAA-4637-4904-A964-94383309CD00}</ProjectGuid>
+    <ProjectGuid>{A89E3F50-AA02-44AF-96E7-6EB4883D2730}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypescriptLib</RootNamespace>
-    <AssemblyName>TypescriptLib</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>TypescriptLib.Build</RootNamespace>
+    <AssemblyName>TypescriptLib.Build</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -68,28 +68,37 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="CalendarService.ts" />
-    <TypeScriptCompile Include="i18n\nb-no.ts" />
-    <TypeScriptCompile Include="TimeSpan.ts" />
-    <TypeScriptCompile Include="Validation.ts" />
-    <TypeScriptCompile Include="ValidationService.ts" />
-    <TypeScriptCompile Include="_DefinitelyTyped\references.ts" />
+    <Content Include="test\tsconfig.json" />
+    <Content Include="build\1.0.0\typescriptLib.Angular.js.map" />
+    <Content Include="build\1.0.0\typescriptLib.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\1.0.0\datepicker.css" />
+    <Content Include="build\1.0.0\datepicker.min.css" />
+    <Content Include="build\1.0.0\tabset.css" />
+    <Content Include="build\1.0.0\tabset.min.css" />
+    <Content Include="build\1.0.0\typescriptLib.Angular.js" />
+    <Content Include="build\1.0.0\typescriptLib.js" />
+    <Content Include="test\index.html" />
+    <Content Include="test\test.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <TypeScriptCompile Include="DayOfWeek.ts" />
-    <TypeScriptCompile Include="HolydayService.ts" />
-    <TypeScriptCompile Include="List.ts" />
-    <TypeScriptCompile Include="Month.ts" />
-    <TypeScriptCompile Include="Period.ts" />
-    <TypeScriptCompile Include="Prototype.Array.ts" />
-    <TypeScriptCompile Include="Prototype.Date.ts" />
-    <TypeScriptCompile Include="Prototype.Number.ts" />
-    <TypeScriptCompile Include="Prototype.String.ts" />
-    <TypeScriptCompile Include="Week.ts" />
-    <TypeScriptCompile Include="_DefinitelyTyped\angular-ui-router\angular-ui-router.d.ts" />
+    <TypeScriptCompile Include="build\1.0.0\typescriptLib.Angular.d.ts" />
+    <TypeScriptCompile Include="build\1.0.0\typescriptLib.d.ts" />
+    <TypeScriptCompile Include="test\CalendarService.ts" />
+    <TypeScriptCompile Include="test\HolydayService.ts" />
+    <TypeScriptCompile Include="test\List.ts" />
+    <TypeScriptCompile Include="test\Month.ts" />
+    <TypeScriptCompile Include="test\Prototypes.Date.ts" />
+    <TypeScriptCompile Include="test\Prototypes.Number.ts" />
+    <TypeScriptCompile Include="test\Prototypes.String.ts" />
+    <TypeScriptCompile Include="test\Timespan.ts" />
+    <TypeScriptCompile Include="test\Validation.ts" />
+    <TypeScriptCompile Include="test\Week.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\angularjs\angular-mocks.d.ts" />
@@ -98,38 +107,16 @@
     <TypeScriptCompile Include="_DefinitelyTyped\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="_DefinitelyTyped\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="_DefinitelyTyped\qunit\qunit.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include=".gitignore" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="tsconfig.json" />
-  </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <TypeScriptTarget>ES5</TypeScriptTarget>
-    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
-    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
-    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptModuleKind>None</TypeScriptModuleKind>
-    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
-    <TypeScriptOutFile />
-    <TypeScriptOutDir />
-    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
-    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
-    <TypeScriptSourceMap>False</TypeScriptSourceMap>
-    <TypeScriptMapRoot />
-    <TypeScriptSourceRoot />
-  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -139,9 +126,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51739</DevelopmentServerPort>
+          <DevelopmentServerPort>62729</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51739/</IISUrl>
+          <IISUrl>http://localhost:62729/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

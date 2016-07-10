@@ -1,37 +1,659 @@
-﻿QUnit.module('Week');
-
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+/// <reference path="../_definitelytyped/angularjs/angular.d.ts" />
+QUnit.module('Calendar');
+var calendarService = new TSL.Services.CalendarService();
+QUnit.test('Calendar', function (a) {
+    testCalendar(a, calendarService.getCalendar(2015, 5));
+    testCalendar(a, calendarService.getCalendar(2015, 8));
+    testCalendar(a, calendarService.getCalendar(1977, 2));
+    var cal = calendarService.getCalendar(2015, 1);
+    cal.weeks.forEach(function (week) {
+        a.ok(week.weekNumber > 0, week.weekNumber.toString());
+    });
+    a.ok(cal.preDates[0].date.getFullYear() === 2014);
+    a.ok(cal.postDates[0].date.getFullYear() === 2015);
+    cal = calendarService.getCalendar(2000, 12);
+    cal.weeks.forEach(function (week) {
+        a.ok(week.weekNumber > 0, week.weekNumber.toString());
+    });
+    a.ok(cal.preDates[0].date.getFullYear() === 2000);
+    a.ok(cal.postDates[0].date.getFullYear() === 2001);
+});
+QUnit.test('Calendar holydays', function (a) {
+    var cal = calendarService.getCalendar(2015, 5);
+    var holydaysInMay2015 = 0;
+    cal.dates.forEach(function (date) {
+        if (date.holydays.length > 0) {
+            holydaysInMay2015++;
+        }
+    });
+    a.ok(holydaysInMay2015 === 5);
+    cal = calendarService.getCalendar(2015, 2);
+    var holydaysInFeb2015 = 0;
+    cal.dates.forEach(function (date) {
+        if (date.holydays.length > 0) {
+            holydaysInFeb2015++;
+        }
+    });
+    a.ok(holydaysInFeb2015 === 0);
+    cal = calendarService.getCalendar(2015, 1);
+    cal.preDates.forEach(function (date) {
+        a.ok(1 == 1, angular.toJson(date));
+    });
+});
+QUnit.test('A bounch of calendars', function (a) {
+    var date = new Date().addYears(-400);
+    for (var i = 0; i < 10; ++i) {
+        var rndDays = Math.floor((Math.random() * 200) + 1) + 500;
+        date = date.addDays(rndDays);
+        var cal = calendarService.getCalendar(date.getFullYear(), date.getMonth() + 1);
+        testBounchOfCalendars(a, cal);
+    }
+});
+function testBounchOfCalendars(a, cal) {
+    a.ok(1 === 1, 'calendar: ' + cal.year + '.' + cal.month);
+    a.ok(cal.dates.length.between(28, 31), 'dates: ' + cal.dates.length);
+    a.ok(cal.preDates.length.between(0, 14), 'preDates: ' + cal.preDates.length);
+    a.ok(cal.postDates.length.between(0, 14), 'postDates: ' + cal.postDates.length);
+    a.ok(cal.weeks.length === 6);
+    a.ok(cal.weeks[0].weekNumber.between(1, 53));
+    a.ok(cal.weeks[1].weekNumber.between(1, 53) && cal.weeks[1].weekNumber != cal.weeks[0].weekNumber);
+    a.ok(cal.weeks[2].weekNumber.between(1, 53) && cal.weeks[2].weekNumber != cal.weeks[1].weekNumber);
+    a.ok(cal.weeks[3].weekNumber.between(1, 53) && cal.weeks[3].weekNumber != cal.weeks[2].weekNumber);
+    a.ok(cal.weeks[4].weekNumber.between(1, 53) && cal.weeks[4].weekNumber != cal.weeks[3].weekNumber);
+    a.ok(cal.weeks[5].weekNumber.between(1, 53) && cal.weeks[5].weekNumber != cal.weeks[4].weekNumber);
+}
+function testCalendar(a, cal) {
+    cal.weeks.forEach(function (week) {
+        a.ok(week.weekNumber > 0, week.weekNumber.toString());
+    });
+    cal.preDates.forEach(function (date) {
+        a.ok(date.date.getMonth() === cal.month - 2, 'preDate ' + date.date.format('dd.MM.yyyy'));
+    });
+    cal.dates.forEach(function (date) {
+        a.ok(date.date.getMonth() === cal.month - 1, 'date ' + date.date.format('dd.MM.yyyy'));
+    });
+    cal.postDates.forEach(function (date) {
+        a.ok(date.date.getMonth() === cal.month, 'postDate ' + date.date.format('dd.MM.yyyy'));
+    });
+    a.ok(cal.preDates[0].date.dayOfWeek() === TSL.DayOfWeek.Monday);
+}
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('Holydays');
 var hs = new TSL.Services.HolydayService();
-
-QUnit.test('Weeknumber', function (a: QUnitAssert) {
-
+QUnit.test('Easter', function (a) {
+    validateHolydays(a, 2015, '02.04', '06.04', '14.05', '25.05');
+    validateHolydays(a, 1977, '07.04', '11.04', '19.05', '30.05');
+    validateHolydays(a, 2020, '09.04', '13.04', '21.05', '01.06');
+    var holydays2015 = hs.getHolydays(2015);
+    a.ok(holydays2015.length < 20);
+});
+function validateHolydays(assert, year, skjærtorsdag, andrePåskedag, kristiHimelfart, andrePinsedag) {
+    skjærtorsdag += '.' + year.toString();
+    andrePåskedag += '.' + year.toString();
+    kristiHimelfart += '.' + year.toString();
+    andrePinsedag += '.' + year.toString();
+    var list = new TSL.Collections.List(hs.getHolydays(year));
+    assert.ok(list.singleOrDefault(function (h) { return h.date.format('dd.MM.yyyy') == skjærtorsdag; }).description === 'Skjærtorsdag', skjærtorsdag + ' Skjærtorsdag');
+    assert.ok(list.singleOrDefault(function (h) { return h.date.format('dd.MM.yyyy') == andrePåskedag; }).description === 'Andre påskedag', andrePåskedag + ' Andre påskedag');
+    assert.ok(list.singleOrDefault(function (h) { return h.date.format('dd.MM.yyyy') == kristiHimelfart; }).description === 'Kristi himmelfartsdag', kristiHimelfart + ' Kristi himmelfartsdag');
+    assert.ok(list.singleOrDefault(function (h) { return h.date.format('dd.MM.yyyy') == andrePinsedag; }).description === 'Andre pinsedag', andrePinsedag + ' Andre pinsedag');
+}
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('List<T>');
+function getPersons() {
+    var personList = new TSL.Collections.List();
+    personList.add({ name: 'aa', age: 15, birthdate: new Date().addYears(-15) });
+    personList.add({ name: 'bb', age: 3, birthdate: new Date().addYears(-3) });
+    personList.add({ name: 'cc', age: 28, birthdate: new Date().addYears(-28) });
+    personList.add({ name: 'dd', age: 32, birthdate: new Date().addYears(-32) });
+    personList.add({ name: 'ee', age: 78, birthdate: new Date().addYears(-78) });
+    return personList;
+}
+/*
+        add(item: T);
+        addRange(item: Array<T>);
+        insert(index: number, item: T): List<T>;
+        first(): T;
+        firstOrDefault(predicate?: (item: T) => boolean): T;
+        singleOrDefault(predicate?: (item: T) => boolean): T;
+        last(): T;
+        remove(predicate?: (item: T) => boolean): List<T>;
+        removeAt(index: number): List<T>;
+        where(predicate?: (item: T) => boolean): List<T>;
+        take(count: number): List<T>;
+        forEach(action: (item: T) => void): List<T>;
+        orderBy(selector: (item: T) => any): List<T>;
+        orderByDescending(selector: (item: T) => any): List<T>;
+        offset(startIndex: number, count: number): List<T>;
+        toArray(): Array<T>;
+        contains(predicate?: (item: T) => boolean): boolean;
+        count(predicate?: (item: T) => boolean): number;
+        copy(): List<T>;
+        clear(): void;
+*/
+QUnit.test('initial', function (a) {
+    var personList = getPersons();
+    a.ok(personList.count() === 5, 'count() should be 5. Is ' + personList.count());
+});
+QUnit.test('any', function (a) {
+    var persons = getPersons();
+    a.equal(persons.any(function (p) { return p.age > 0; }), true);
+    a.equal(persons.any(function (p) { return p.age < 0; }), false);
+});
+QUnit.test('group', function (a) {
+    var persons = getPersons();
+    persons.add({ name: 'test', age: 10, birthdate: new Date() });
+    persons.add({ name: 'test', age: 10, birthdate: new Date() });
+    persons.add({ name: 'test', age: 10, birthdate: new Date() });
+    var g = persons.group(function (m) { return m.name; });
+    a.equal(g.length > 0, true);
+});
+QUnit.test('sum/avg', function (a) {
+    var persons = getPersons();
+    var loopSum = 0;
+    persons.forEach(function (person) {
+        loopSum += person.age;
+    });
+    var loopAvg = loopSum / persons.count();
+    var listSum = persons.sum(function (p) { return p.age; });
+    var listAvg = persons.avg(function (p) { return p.age; });
+    a.ok(listSum === loopSum, 'sum age was ' + listSum);
+    a.ok(listAvg === loopAvg, 'avg age was ' + listAvg);
+    var numbers = new TSL.Collections.List([1, 2, 3]);
+    a.ok(numbers.avg(function (n) { return n; }) === 2);
+    a.ok(numbers.sum(function (n) { return n; }) === 6);
+    numbers = new TSL.Collections.List([1, 2, 3, 4]);
+    a.ok(numbers.avg(function (n) { return n; }) === 2.5);
+});
+QUnit.test('min/max', function (a) {
+    var persons = getPersons();
+    a.ok(persons.min(function (p) { return p.age; }) === 3, 'min age expected 3 was ' + persons.min(function (p) { return p.age; }));
+    a.ok(persons.max(function (p) { return p.age; }) === 78, 'max age expected 78 was ' + persons.max(function (p) { return p.age; }));
+    var numbers = new TSL.Collections.List([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    a.ok(numbers.min(function (n) { return n; }) === 1);
+    a.ok(numbers.max(function (n) { return n; }) === 9);
+});
+QUnit.test('add', function (a) {
+    var personList = new TSL.Collections.List();
+    a.ok(personList.add({ name: 'aa', age: 5 }).count() === 1);
+    a.ok(personList.add({ name: 'bb', age: 13 }).count() === 2);
+    a.ok(personList.add({ name: 'cc', age: 28 }).count() === 3);
+    a.ok(personList.add({ name: 'dd', age: 32 }).count() === 4);
+    a.ok(personList.add({ name: 'ee', age: 78 }).count() === 5);
+});
+QUnit.test('addRange', function (a) {
+    var personList = new TSL.Collections.List();
+    var persons = [];
+    persons.push({ name: 'ff', age: 5 + 7 });
+    persons.push({ name: 'gg', age: 13 + 7 });
+    persons.push({ name: 'hh', age: 28 + 7 });
+    persons.push({ name: 'ii', age: 32 + 7 });
+    persons.push({ name: 'jj', age: 78 + 7 });
+    a.ok(personList.addRange(persons).count() === 5);
+});
+QUnit.test('insert', function (a) {
+    var personList = getPersons();
+    personList.insert(2, { name: 'kk', age: 12 });
+    a.ok(personList.count() === 6);
+});
+QUnit.test('first', function (a) {
+    var personList = getPersons();
+    a.ok(personList.first().name === 'aa');
+    a.ok(personList.first().age === 15);
+});
+QUnit.test('last', function (a) {
+    var personList = getPersons();
+    a.ok(personList.last() != null);
+    a.ok(personList.last().name === 'ee');
+    a.ok(personList.last().age === 78);
+});
+QUnit.test('remove', function (a) {
+    var personList = getPersons();
+    a.ok(personList.remove(function (p) { return p.name === 'aa'; }).count() === 4);
+    a.ok(personList.remove(function (p) { return p.age > 1; }).count() === 0);
+});
+QUnit.test('removeAt', function (a) {
+    var personList = getPersons();
+    a.ok(personList.removeAt(10).count() === 5);
+    a.ok(personList.removeAt(2).count() === 4);
+});
+QUnit.test('where', function (a) {
+    var personList = getPersons();
+    a.ok(personList.where(function (p) { return p.age > 50; }).count() === 1);
+    a.ok(personList.where(function (p) { return p.age < 50; }).count() === 4);
+    a.ok(personList.where(function (p) { return p.name.startsWith('a'); }).count() === 1);
+});
+QUnit.test('take', function (a) {
+    var personList = getPersons();
+    a.ok(personList.take(1).count() === 1);
+    a.ok(personList.take(50).count() === 5);
+    a.ok(personList.take(0).count() === 0);
+});
+QUnit.test('forEach', function (a) {
+    var personList = getPersons();
+    var count = 0;
+    personList.forEach(function (person) {
+        count++;
+        a.ok(person.name.length > 1);
+    });
+    a.ok(count === 5);
+});
+QUnit.test('orderBy', function (a) {
+    var personList = getPersons();
+    personList.orderBy(function (p) { return p.name; });
+    a.ok(personList.first().name === 'aa');
+    personList.orderBy(function (p) { return p.age; });
+    a.ok(personList.first().name === 'bb');
+});
+QUnit.test('orderByDescending', function (a) {
+    var personList = getPersons();
+    personList.orderByDescending(function (p) { return p.name; });
+    a.ok(personList.first().name === 'ee');
+    personList.orderByDescending(function (p) { return p.age; });
+    a.ok(personList.first().name === 'ee');
+});
+QUnit.test('offset', function (a) {
+    var personList = getPersons();
+    a.ok(personList.offset(2, 2).count() === 2);
+    a.ok(personList.offset(2, 2).first().name === 'cc');
+});
+QUnit.test('toArray', function (a) {
+    var personList = getPersons();
+    a.ok(personList.count() == personList.toArray().length);
+});
+QUnit.test('contains', function (a) {
+    var personList = getPersons();
+    a.ok(personList.contains(function (p) { return p.name === 'aa'; }));
+    a.ok(personList.contains(function (p) { return p.age > 5; }));
+    a.ok(personList.contains(function (p) { return p.age > 90; }) === false);
+    a.ok(personList.contains(function (p) { return p.name === 'ww'; }) === false);
+});
+QUnit.test('count', function (a) {
+    var personList = getPersons();
+    a.ok(personList.count() === 5);
+    a.ok(personList.count(function (p) { return p.age > 70; }) === 1);
+    a.ok(personList.count(function (p) { return p.age < 70; }) === 4);
+});
+QUnit.test('copy', function (a) {
+    var personList = getPersons();
+    a.ok(personList.count() === personList.copy().count());
+    a.ok(personList.count(function (p) { return p.age > 40; }) === personList.copy().count(function (p) { return p.age > 40; }));
+});
+QUnit.test('clear', function (a) {
+    var personList = getPersons();
+    personList.clear();
+    a.ok(personList.count() === 0);
+});
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('Month');
+QUnit.test('Month navigation', function (a) {
+    var month = TSL.Month.Now();
+    var now = new Date();
+    a.ok(now.getMonth() + 1 === month.monthNumber);
+    var nov2015 = new TSL.Month(2015, 11);
+    var des2015 = new TSL.Month(2015, 12);
+    a.equal(nov2015.addMonths(1).monthNumber, des2015.monthNumber);
+    a.equal(nov2015.monthNumber, des2015.addMonths(-1).monthNumber);
+    a.equal(nov2015.getDates().length, 30);
+    a.equal(des2015.getDates().length, 31);
+});
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('Prototypes.Date');
+/*
+    isToday(): boolean;
+    isSameDay(value: Date): boolean;
+    addMonths(months: number): Date;
+    addDays(days: number): Date;
+    addHours(hours: number): Date;
+    addMinutes(minutes: number): Date;
+    addSeconds(seconds: number): Date;
+    date(): Date;
+    format(format: string): string;
+    getWeekNumber(): number;
+    copy(): Date;
+    dayOfWeek(): DayOfWeek;
+    isLeapYear(): boolean;
+    getWeek(): Week;
+    getDateTime(): DateTime;
+*/
+var birthdate = new Date(1977, 1, 15, 18, 20, 0);
+QUnit.test('isToday', function (a) {
+    a.ok(new Date().isToday());
+});
+QUnit.test('isSameDay', function (a) {
+    a.ok(birthdate.isSameDay(new Date(1977, 1, 15)));
+});
+QUnit.test('addYears', function (a) {
+    a.ok(birthdate.addYears(2).getFullYear() === 1979);
+    a.ok(birthdate.addYears(40).getFullYear() === 2017);
+    a.ok(birthdate.addYears(-100).getFullYear() === 1877);
+});
+QUnit.test('addMonths', function (a) {
+    a.ok(birthdate.addMonths(1) != null);
+    a.ok(birthdate.addMonths(1).isSameDay(new Date(1977, 2, 15)));
+    a.ok(new Date(2015, 11, 31).addMonths(1).isSameDay(new Date(2016, 0, 31)));
+});
+QUnit.test('addDays', function (a) {
+    a.ok(birthdate.addDays(1).isSameDay(new Date(1977, 1, 16)));
+    a.ok(birthdate.addDays(10).isSameDay(new Date(1977, 1, 25)));
+    a.ok(birthdate.addDays(-10).isSameDay(new Date(1977, 1, 5)));
+    a.ok(new Date(2015, 11, 31).addDays(1).toString() === new Date(2016, 0, 1).toString());
+    a.ok(new Date(2015, 1, 28).addDays(1).toString() === new Date(2015, 2, 1).toString());
+    a.ok(new Date(2020, 1, 29).addDays(1).toString() === new Date(2020, 2, 1).toString()); // 2020 er Skuddår
+});
+QUnit.test('addHours', function (a) {
+    a.ok(birthdate.addHours(1).getHours() === 19);
+    a.ok(birthdate.addHours(10).isSameDay(new Date(1977, 1, 16)));
+    a.ok(new Date(2015, 11, 31, 18).addHours(20).isSameDay(new Date(2016, 0, 1)));
+});
+QUnit.test('addMinutes', function (a) {
+    a.ok(birthdate.addMinutes(1) > birthdate);
+    a.ok(birthdate.addMinutes(10).isSameDay(new Date(1977, 1, 15)));
+    a.ok(new Date(2015, 11, 31, 23, 50).addMinutes(20).isSameDay(new Date(2016, 0, 1)));
+});
+QUnit.test('addSeconds', function (a) {
+    a.ok(birthdate.addSeconds(1) > birthdate);
+    a.ok(birthdate.addSeconds(10).isSameDay(new Date(1977, 1, 15)));
+    a.ok(new Date(2015, 11, 31, 23, 59, 30).addSeconds(31).isSameDay(new Date(2016, 0, 1)));
+});
+QUnit.test('date', function (a) {
+    a.ok(birthdate.date().toString() === new Date(1977, 1, 15, 0, 0, 0).toString());
+});
+QUnit.test('format', function (a) {
+    a.ok(birthdate.format('yy') === '77');
+    a.ok(birthdate.format('yyyy') === '1977');
+    a.ok(birthdate.format('MM') === '02');
+    a.ok(birthdate.format('dd') === '15');
+    a.ok(birthdate.format('HH') === '18');
+    a.ok(birthdate.format('mm') === '20');
+    a.ok(birthdate.format('dd.MM.yyyy HH:mm') === '15.02.1977 18:20');
+});
+QUnit.test('getWeekNumber', function (a) {
+    a.ok(birthdate.getWeekNumber() === 7);
+    a.ok(new Date(2015, 10, 9).getWeekNumber() === 46);
+    a.ok(new Date(2020, 0, 1).getWeekNumber() === 1);
+    a.ok(new Date(1977, 1, 15).getWeekNumber() === 7);
+    a.ok(new Date(1976, 11, 31).getWeekNumber() === 53);
+    a.ok(new Date(1976, 11, 27).getWeekNumber() === 53);
+    a.ok(new Date(1976, 11, 24).getWeekNumber() === 52);
+    a.ok(new Date(1976, 1, 15).getWeekNumber() === 7);
+});
+QUnit.test('copy', function (a) {
+    a.ok(birthdate.copy().toString() === birthdate.toString());
+});
+QUnit.test('dayOfWeek', function (a) {
+    a.ok(birthdate.dayOfWeek() === TSL.DayOfWeek.Tuesday);
+    a.ok(new Date(1977, 1, 15).dayOfWeek() == TSL.DayOfWeek.Tuesday);
+    a.ok(new Date(2015, 10, 9).dayOfWeek() == TSL.DayOfWeek.Monday);
+});
+QUnit.test('isLeapYear', function (a) {
+    var leapYears = [
+        1804, 1872, 1944, 2012, 2080, 2152, 1808, 1876, 1948, 2016, 2084, 2156,
+        1812, 1880, 1952, 2020, 2088, 2160, 1816, 1884, 1956, 2024, 2092, 2164,
+        1820, 1888, 1960, 2028, 2096, 2168, 1824, 1892, 1964, 2032, 2104, 2172,
+        1828, 1896, 1968, 2036, 2108, 2176, 1832, 1904, 1972, 2040, 2112, 2180,
+        1836, 1908, 1976, 2044, 2116, 2184, 1840, 1912, 1980, 2048, 2120, 2188,
+        1844, 1916, 1984, 2052, 2124, 2192, 1848, 1920, 1988, 2056, 2128, 2196,
+        1852, 1924, 1992, 2060, 2132, 1856, 1928, 1996, 2064, 2136, 1860, 1932,
+        2000, 2068, 2140, 1864, 1936, 2004, 2072, 2144, 1868, 1940, 2008, 2076];
+    var year = 1804;
+    while (year < 2079) {
+        if (leapYears.contains(year)) {
+            a.ok(new Date(year, 2, 2).isLeapYear(), year + ' er skuddår');
+        }
+        else {
+            a.ok(new Date(year, 2, 2).isLeapYear() === false, year + ' er ikke skuddår');
+        }
+        year++;
+    }
+});
+QUnit.test('getWeek', function (a) {
+    a.ok(birthdate.getWeek().weekNumber === 7);
+});
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('Prototypes.Number');
+QUnit.test('floor', function (a) {
+    for (var i = 0; i < 100; ++i) {
+        var rndNumber = Math.floor((Math.random() * 10000) + 1) * Math.random();
+        var floor = rndNumber.floor();
+        a.ok(Math.floor(rndNumber) === floor, 'floor ' + rndNumber + ' eq ' + floor);
+    }
+});
+QUnit.test('ceil', function (a) {
+    for (var i = 0; i < 100; ++i) {
+        var rndNumber = Math.floor((Math.random() * 10000) + 1) * Math.random();
+        var ceil = rndNumber.ceil();
+        a.ok(Math.ceil(rndNumber) === ceil, 'ceil ' + rndNumber + ' eq ' + ceil);
+    }
+});
+QUnit.test('percent', function (a) {
+    var testAddPercent = function (num, percent, expect) {
+        a.ok((num).addPercent(percent) === expect, num + ' + ' + percent + '% er ' + expect);
+    };
+    var testPercentageOf = function (num, total, expect) {
+        a.ok((num).percentageOf(total) === expect, expect + '% av ' + total + ' er ' + num);
+    };
+    testAddPercent(100, 10, 110);
+    testAddPercent(50, 10, 55);
+    testAddPercent(10, 1, 10.1);
+    testAddPercent(100, -10, 90);
+    testPercentageOf(100, 200, 50);
+    testPercentageOf(50, 200, 25);
+    testPercentageOf(20, 200, 10);
+    testPercentageOf(100, 100, 100);
+    testPercentageOf(50, 100, 50);
+    testPercentageOf(20, 100, 20);
+});
+QUnit.test('between', function (a) {
+    a.ok((2).between(1, 100));
+    a.ok((2).between(2, 2));
+    a.ok((2).between(2, 3));
+    a.ok((2).between(1.9, 2));
+    a.ok((0.9).between(1, 100) === false);
+    a.ok((1).between(2, 2) === false);
+    a.ok((3.1).between(2, 3) === false);
+    a.ok((1.89).between(1.9, 2) === false);
+});
+QUnit.test('in,', function (a) {
+    a.ok((1).in([1, 2, 3]));
+    a.ok((2).in([1, 2, 3]));
+    a.ok((3).in([1, 2, 3]));
+    a.ok((4).in([1, 2, 3]) === false);
+});
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('Prototypes.String');
+QUnit.test('format', function (a) {
+    a.strictEqual('123{0}123'.format('test'), '123test123');
+    a.strictEqual('123{0}12{1}3'.format('test', 'test'), '123test12test3');
+    a.strictEqual('{0} {1}'.format('Stian', 'Sandberg'), 'Stian Sandberg');
+    a.strictEqual('{0}.{1}.{0}.{1}'.format('1', '2x'), '1.2x.1.2x');
+});
+QUnit.test('equals', function (a) {
+    a.strictEqual('stian'.equals('stian'), true);
+    a.strictEqual('Stian'.equals('stian'), false);
+    a.strictEqual('Stian'.equals('stian', true), true);
+    a.strictEqual('stian'.equals('stian '), true);
+    a.strictEqual(' stian '.equals('stian'), true);
+});
+QUnit.test('toUpper', function (a) {
+    a.ok('stian'.toUpper() === 'STIAN');
+    a.ok('stian'.toUpper().toLower() === 'stian');
+});
+QUnit.test('trim', function (a) {
+    a.ok('stian '.trim() === 'stian');
+    a.ok(' stian'.trim() === 'stian');
+    a.ok(' stian '.trim() === 'stian');
+    a.ok(' stian sandberg '.trim() === 'stian sandberg');
+});
+QUnit.test('startsWith', function (a) {
+    a.ok('stian'.startsWith('s'));
+    a.ok('stian'.startsWith('sti'));
+    a.ok('stian'.startsWith('sti ') === false);
+    a.ok('stian'.startsWith('S') === false);
+    a.ok('stian'.startsWith('S', true));
+});
+QUnit.test('endsWith', function (a) {
+    a.ok('stian'.endsWith('n'));
+    a.ok('stian'.endsWith('ian'));
+    a.ok('stian'.endsWith('N') === false);
+    a.ok('stian'.endsWith('N', true));
+});
+QUnit.test('contains', function (a) {
+    a.ok('stian'.contains('ia'));
+    a.ok('stian'.contains('a'));
+    a.ok('stian'.contains('n'));
+    a.ok('stian'.contains('S') === false);
+    a.ok('stian'.contains('N') === false);
+    a.ok('stian'.contains(' ') === false);
+    a.ok('stian'.contains('IaN', true));
+});
+QUnit.test('left', function (a) {
+    a.ok('stian'.left(2) === 'st');
+    a.ok('stian'.left(4) === 'stia');
+    a.ok('stian'.left(10) === 'stian');
+});
+QUnit.test('right', function (a) {
+    a.ok('stian'.right(2) === 'an');
+    a.ok('stian'.right(4) === 'tian', 'excpected "tian" got ' + 'stian'.right(4));
+    a.ok('stian'.right(10) === 'stian');
+});
+QUnit.test('repeat', function (a) {
+    a.ok('s'.repeat(3) === 'sss');
+    a.ok('SS'.repeat(3) === 'SSSSSS');
+    a.ok('1'.repeat(2) === '11');
+});
+QUnit.test('replaceAll', function (a) {
+    a.ok('abcdabcd'.replaceAll('a', 'x') === 'xbcdxbcd');
+    a.ok('hellohello'.replaceAll('ll', '') === 'heoheo');
+});
+QUnit.test('padLeft', function (a) {
+    a.ok('stian'.padLeft(10, '_') === '_____stian');
+});
+QUnit.test('padRight', function (a) {
+    a.ok('stian'.padRight(10, '_') === 'stian_____');
+});
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('TimeSpan');
+QUnit.test('ts', function (a) {
+    var ts = TSL.TimeSpan.FromMinutes(60);
+    a.ok(ts.totalMinutes() === 60);
+    a.ok(ts.totalSeconds() === (60 * 60));
+    a.ok(ts.totalHours() === 1);
+    a.ok(TSL.TimeSpan.FromMinutes(90).totalHours() === 1.5);
+    a.ok(TSL.TimeSpan.FromMinutes(105).totalHours() === 1.75);
+    a.ok(TSL.TimeSpan.FromMinutes(105).totalHours(true) === 1);
+    a.ok(TSL.TimeSpan.FromMinutes(119).totalHours(true) === 1);
+});
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('Validation');
+QUnit.test('isNullOrEmpty', function (a) {
+    var nullValues = [null, NaN, [], {}, new Object(), new Object(null), Object.create(null), new Array(0)];
+    var notNullValues = [-1, 0, 1, 2, 'test', [1, 2], new Object(1), new Array(1), Object.create({ a: 1 })];
+    var i = 0;
+    for (i = 0; i < nullValues.length; i++) {
+        a.equal(TSL.Validation.isNullOrEmpty(nullValues[i]), true);
+    }
+    i = 0;
+    for (i = 0; i < notNullValues.length; i++) {
+        a.equal(TSL.Validation.isNullOrEmpty(notNullValues[i]), false);
+    }
+});
+QUnit.test('isEmail', function (a) {
+    var validEmail = ['stian@stian.net'];
+    var invalidEmail = ['d@d.b'];
+    var i = 0;
+    for (i = 0; i < validEmail.length; i++) {
+        a.equal(TSL.Validation.isEmail(validEmail[i]), true);
+    }
+    i = 0;
+    for (i = 0; i < invalidEmail.length; i++) {
+        a.equal(TSL.Validation.isEmail(invalidEmail[i]), false);
+    }
+});
+QUnit.test('isFloat', function (a) {
+    var validFloats = [1.0, 1.1, 2.2, 3.3, 123.3, 321];
+    var invalidFloats = [null, 'a', NaN, { a: 1 }, [1, 2]];
+    var i = 0;
+    for (i = 0; i < validFloats.length; i++) {
+        a.equal(TSL.Validation.isNumber(validFloats[i]), true);
+    }
+    i = 0;
+    for (i = 0; i < invalidFloats.length; i++) {
+        a.equal(TSL.Validation.isNumber(invalidFloats[i]), false);
+    }
+});
+QUnit.test('isInt', function (a) {
+    var validInts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000, 999, 234, 1234, 6354, 3457, 12345, 48, -1, -2, -3, -4];
+    var invalidInts = [1.1, 'a', NaN, { a: 1 }, [1, 2]];
+    var i = 0;
+    for (i = 0; i < validInts.length; i++) {
+        a.equal(TSL.Validation.isInt(validInts[i]), true);
+    }
+    i = 0;
+    for (i = 0; i < invalidInts.length; i++) {
+        a.equal(TSL.Validation.isInt(invalidInts[i]), false);
+    }
+});
+QUnit.test('containsOnly', function (a) {
+    a.equal(TSL.Validation.containsOnly('stian', '[a-z]'), true);
+    a.equal(TSL.Validation.containsOnly('stian', 'naits'), true);
+    a.equal(TSL.Validation.containsOnly('stian', '[A-Z]'), false);
+    a.equal(TSL.Validation.containsOnly('stian', '[A-Z]', true), true);
+});
+QUnit.test('isInrange', function (a) {
+    a.equal(TSL.Validation.isInRange(1, 1, 1), true);
+    a.equal(TSL.Validation.isInRange(1, 1.1, 1), false);
+    a.equal(TSL.Validation.isInRange(1.1, 1.0, 1.1), true);
+    a.equal(TSL.Validation.isInRange(-1, -1.1, -0.9), true);
+});
+QUnit.test('isIpAddress', function (a) {
+    var validIps = ['123.123.123.123', '1.1.1.1', '8.8.8.8', '255.255.255.255', '192.168.0.1'];
+    var invalidIps = [1, '1.1.1', '123.123.123.256', 'test', '123.123', '321.3.3.3'];
+    var i = 0;
+    for (i = 0; i < validIps.length; i++) {
+        a.equal(TSL.Validation.isIpAddress(validIps[i]), true);
+    }
+    i = 0;
+    for (i = 0; i < invalidIps.length; i++) {
+        a.equal(TSL.Validation.isIpAddress(invalidIps[i]), false);
+    }
+});
+/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+QUnit.module('Week');
+var hs = new TSL.Services.HolydayService();
+QUnit.test('Weeknumber', function (a) {
     var start = new Date();
-    
     someRandomDates(a);
     test2028(a);
     test2019(a);
     test2015(a);
     test2014(a);
     test2000(a);
-    test1987(a);    
-
+    test1987(a);
     var end = new Date();
     var timeTaken = TSL.TimeSpan.FromDates(start, end).totalMilliseconds();
-
     console.log('Weeknumber test done in {0} ms'.format(timeTaken.toString()));
     console.log('Did {0} weeknumbers pr ms'.format((2271 / timeTaken).round().toString()));
-
-
     var week = new TSL.Week(new Date(2015, 11, 31));
     a.equal(week.weekNumber, 53);
     a.equal(week.addWeeks(1).weekNumber, 1);
     a.equal(week.addWeeks(2).weekNumber, 2);
-
     week = new TSL.Week(new Date(2016, 0, 7));
     a.equal(week.weekNumber, 1);
     a.equal(week.addWeeks(-1).weekNumber, 53);
 });
-
-function someRandomDates(a: QUnitAssert) {
+function someRandomDates(a) {
     a.equal(new Date(2015, 0, 1).getWeekNumber(), 1);
     a.equal(new Date(2015, 0, 6).getWeekNumber(), 2);
     a.equal(new Date(2015, 0, 18).getWeekNumber(), 3);
@@ -54,8 +676,7 @@ function someRandomDates(a: QUnitAssert) {
     a.equal(new Date(1889, 3, 15).getWeekNumber(), 16);
     a.equal(new Date(1977, 1, 15).getWeekNumber(), 7);
 }
-
-function test2028(a: QUnitAssert) {
+function test2028(a) {
     a.equal(new Date(2027, 11, 18).getWeekNumber(), 50);
     a.equal(new Date(2027, 11, 19).getWeekNumber(), 50);
     a.equal(new Date(2027, 11, 20).getWeekNumber(), 51);
@@ -437,8 +1058,7 @@ function test2028(a: QUnitAssert) {
     a.equal(new Date(2028, 11, 30).getWeekNumber(), 52);
     a.equal(new Date(2028, 11, 31).getWeekNumber(), 52);
 }
-
-function test2019(a: QUnitAssert) {
+function test2019(a) {
     a.equal(new Date(2018, 11, 18).getWeekNumber(), 51);
     a.equal(new Date(2018, 11, 19).getWeekNumber(), 51);
     a.equal(new Date(2018, 11, 20).getWeekNumber(), 51);
@@ -820,8 +1440,7 @@ function test2019(a: QUnitAssert) {
     a.equal(new Date(2019, 11, 31).getWeekNumber(), 1);
     a.equal(new Date(2020, 0, 1).getWeekNumber(), 1);
 }
-
-function test2015(a: QUnitAssert) {
+function test2015(a) {
     a.equal(new Date(2015, 0, 1).getWeekNumber(), 1);
     a.equal(new Date(2015, 0, 2).getWeekNumber(), 1);
     a.equal(new Date(2015, 0, 3).getWeekNumber(), 1);
@@ -1188,8 +1807,7 @@ function test2015(a: QUnitAssert) {
     a.equal(new Date(2015, 11, 30).getWeekNumber(), 53);
     a.equal(new Date(2015, 11, 31).getWeekNumber(), 53);
 }
-
-function test2014(a: QUnitAssert) {
+function test2014(a) {
     a.equal(new Date(2014, 0, 1).getWeekNumber(), 1);
     a.equal(new Date(2014, 0, 2).getWeekNumber(), 1);
     a.equal(new Date(2014, 0, 3).getWeekNumber(), 1);
@@ -1556,8 +2174,7 @@ function test2014(a: QUnitAssert) {
     a.equal(new Date(2014, 11, 30).getWeekNumber(), 1);
     a.equal(new Date(2014, 11, 31).getWeekNumber(), 1);
 }
-
-function test2000(a: QUnitAssert) {
+function test2000(a) {
     a.equal(new Date(2000, 0, 1).getWeekNumber(), 52);
     a.equal(new Date(2000, 0, 2).getWeekNumber(), 52);
     a.equal(new Date(2000, 0, 3).getWeekNumber(), 1);
@@ -1938,11 +2555,8 @@ function test2000(a: QUnitAssert) {
     a.equal(new Date(2001, 0, 12).getWeekNumber(), 2);
     a.equal(new Date(2001, 0, 13).getWeekNumber(), 2);
     a.equal(new Date(2001, 0, 14).getWeekNumber(), 2);
-
-
 }
-
-function test1987(a: QUnitAssert) {
+function test1987(a) {
     a.equal(new Date(1986, 11, 18).getWeekNumber(), 51);
     a.equal(new Date(1986, 11, 19).getWeekNumber(), 51);
     a.equal(new Date(1986, 11, 20).getWeekNumber(), 51);
@@ -2323,6 +2937,4 @@ function test1987(a: QUnitAssert) {
     a.equal(new Date(1987, 11, 30).getWeekNumber(), 53);
     a.equal(new Date(1987, 11, 31).getWeekNumber(), 53);
     a.equal(new Date(1988, 0, 1).getWeekNumber(), 53);
-
-
 }

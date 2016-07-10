@@ -1,4 +1,4 @@
-﻿/// <reference path="../holydayservice.ts" />
+﻿/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
 /// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
 
 QUnit.module('Holydays');

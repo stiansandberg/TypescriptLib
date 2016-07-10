@@ -1,4 +1,7 @@
-﻿QUnit.module('Prototypes.Number');
+﻿/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+
+QUnit.module('Prototypes.Number');
 
 QUnit.test('floor', function (a: QUnitAssert) {
     for (var i = 0; i < 100; ++i) {

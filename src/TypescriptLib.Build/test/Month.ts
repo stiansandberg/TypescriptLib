@@ -1,4 +1,6 @@
-﻿/// <reference path="../month.ts" />
+﻿/// <reference path="../build/1.0.0/typescriptlib.d.ts" />
+/// <reference path="../_definitelytyped/qunit/qunit.d.ts" />
+
 QUnit.module('Month');
 
 QUnit.test('Month navigation', function (a: QUnitAssert) {
