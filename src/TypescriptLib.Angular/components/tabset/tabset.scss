@@ -1,38 +1,32 @@
-﻿$tabs-base-color: #ccc;
-$tabs-padding: 20px;
+﻿.tabset {
 
-.tslTabs {
-
-    ul {
-        height: 30px;
-        background-color: $tabs-base-color;
-        padding: 0;
+    ul.tabs {
         margin: 0;
+        padding: 0;
+        list-style: none;
 
         li {
-            background-color: $tabs-base-color;
-            float: left;
-            display: block;
-            cursor: pointer;
-            padding: 0 $tabs-padding 0 $tabs-padding;
-            margin: 0;
-            line-height: 30px;
-            vertical-align: middle;
+            display: inline-block;
+            padding: 9px 12px;
+            border-color: #ddd;
+            margin-bottom: -1px;
+             
+            &.selected {
+                border-width: 3px 1px 0 1px;
+                border-style: solid;
+                border-top-color: #69c;
+                background-color: white;
+            }
 
-            &.tslTabs-selected, &:hover {
-                background-color: darken($tabs-base-color, 15);
-                font-weight: bold;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
             }
         }
     }
 
-    .tslTabs-content {
-        margin: 0;
-        padding: $tabs-padding;
-        z-index: 2;
-        overflow: hidden;
-        width: 100%;
-        background: darken($tabs-base-color, 15);
+    .tab {
+        border: 1px solid #ddd;
+        padding: 10px 16px;
     }
 }
-

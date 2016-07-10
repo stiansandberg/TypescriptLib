@@ -1,79 +1,109 @@
-﻿@mixin fold-out($time){
-        -webkit-transform: perspective(400) rotate3d(0,0,0,0);
-        -moz-transform: perspective(400) rotate3d(0,0,0,0);
-        -ms-transform: perspective(400) rotate3d(0,0,0,0);
-        -o-transform: perspective(400) rotate3d(0,0,0,0);
-        transform: perspective(400) rotate3d(0,0,0,0);
-        -webkit-transform-origin: 50% 0;
-        -moz-transform-origin: 50% 0;
-        -ms-transform-origin: 50% 0;
-        -o-transform-origin: 50% 0;
-        transform-origin: 50% 0;
-        -webkit-transition: $time;
-        -moz-transition: $time;
-        -o-transition: $time;
-        transition: $time;
-}
-@mixin fold-in(){
-        -webkit-transform: perspective(400) rotate3d(1,0,0,-90deg);
-        -moz-transform: perspective(400) rotate3d(1,0,0,-90deg);
-        -ms-transform: perspective(400) rotate3d(1,0,0,-90deg);
-        -o-transform: perspective(400) rotate3d(1,0,0,-90deg);
-        transform: perspective(400) rotate3d(1,0,0,-90deg);
-}
-
-.tslDatepicker {
-    position: relative;
-    display: inline;
-    padding: 0;
-    margin: 0;
-
-    input {
+﻿.datepicker {
+    .button, input{
+        height:33px;
     }
 
-    table.ng-hide {
-        @include fold-in();
-    }
+    .dropdown-menu {
+        user-select: none;
+        background: white;
+        color: #333;
+        padding: 2px;
+        display: inline;
+        overflow: hidden;
+         
+        table.navigation {
+            width: 100%;
 
-    table {
-        @include fold-out(200ms);
+            td {
+                border: 1px solid #fff;
+            }
 
-        position: absolute;
-        top: 30px;
-        left: 1px;
-        z-index: 9000;
-        background-color: #fff;
-        border: solid 1px #ccc;
-        width: 300px;
+            td.nav {
+                width: 10%;
+            }
 
-
-        th {
-            text-align: center;
-        }
-
-        td, th {
-            width: 12.5%;
-        }
-
-        td {
-            text-align: center;
-            cursor: pointer;
-
-            &:hover {
-                background-color: #4cff00;
+            select, a {
+                height: 33px;
             }
         }
 
-        .weeknumber {
-            color: #096;
-        }
+        table.calendar {
+            width: 100%;
+            background-color: white;
 
-        .holyday {
-            color: red;
-        }
+            thead > tr > th {
+                border: none;
+                text-align: center;
+                font-size: larger;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
 
-        .weekend {
-            background-color: #ccc;
+            tbody > tr > td {
+                cursor: pointer;
+                text-align: center;
+                padding: 6px 12px;
+                background-color: white;
+                border-radius: 15px;
+                font-size: 13px;
+                transition: background-color .3s ease;
+
+                &.weeknumber {
+                    color: #999;
+                    cursor: text;
+
+                    &:hover {
+                        background-color: white;
+                        font-weight: normal;
+                    }
+                }
+
+                &:hover {
+                    font-weight: bold;
+                    background-color: #ddd;
+                    border-radius: 15px;
+                }
+
+                &.today {
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+
+                &.selected {
+                    font-weight: bold;
+                    color: white;
+                    background-color: #69c;
+                    border-radius: 15px;
+                }
+
+                &.holyday {
+                    color: red;
+                }
+
+                &.notCurrentMonth {
+                    color: #CCC;
+                }
+            }
+
+            tfoot > tr > td {
+                text-align: center;
+                padding: 5px 0;
+            }
+        }
+    }
+
+
+    .time-control,
+    .date-control {
+        float: left;
+    }
+
+    .time-control {
+        max-width: 80px;
+        margin-left: 2px;
+
+        input {
+            height: 33px;
         }
     }
 }

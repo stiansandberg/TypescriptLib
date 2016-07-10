@@ -1,21 +1,26 @@
-﻿/// <reference path="../../_definitelytyped/angularjs/angular.d.ts" />
-
-module TSL.Components {
+﻿module TSL.Components {
 
     interface ITab {
         selected: boolean;
     }
 
+    export interface ITabSelectedEventArgs {
+        tabIndex: number;
+    }
+
     class TabController {
-        $onInit: any;
-        tslTabset: TabsetController;
-        selected: boolean = false;
 
         constructor() {
             this.$onInit = () => {
                 this.tslTabset.addTab(this);
             }
         }
+
+        $onInit: any;
+        $postLink: any;
+
+        tslTabset: TabsetController;
+        selected: boolean = false;
     }
 
     class TabComponent implements ng.IComponentOptions {
@@ -26,26 +31,31 @@ module TSL.Components {
         bindings: any = {
             label: '='
         };
-
         require: any = {
             tslTabset: '^tslTabset'
         };
     }
 
-
     class TabsetController {
-        tabs: Array<ITab> = [];
 
-        select(tab: ITab) {
+        tabs: Array<ITab> = [];
+        onSelect: (tabIndex: any) => void;
+
+        select(tab: ITab, index: number) {
             angular.forEach(this.tabs, (tab: ITab) => {
                 tab.selected = false;
             });
             tab.selected = true;
+
+            var eventArgs: ITabSelectedEventArgs = {
+                tabIndex: index
+            };
+            this.onSelect({ $event: eventArgs });
         }
 
         addTab(tab: ITab) {
             if (this.tabs.length === 0) {
-                this.select(tab);
+                this.select(tab, 0);
             }
             this.tabs.push(tab);
         };
@@ -55,14 +65,17 @@ module TSL.Components {
         transclude: boolean = true;
         controller: any = TabsetController;
         controllerAs: string = 'tabset';
-        template: string = '<div class="tslTabs">' +
-        '<ul>' +
-        '<li ng-repeat="tab in tabset.tabs" ng-class="{ \'tslTabs-selected\' : tab.selected }" ng-click="tabset.select(tab)">{{tab.label}}</li>' +
+        bindings: any = {
+            onSelect: '&'
+        };
+        template: string = '<div class="tabset">' +
+        '<ul class="tabs">' +
+        '<li ng-repeat="tab in tabset.tabs" ng-class="{ \'selected\' : tab.selected }" ng-click="tabset.select(tab, $index)">{{tab.label}}</li>' +
         '</ul>' +
-        '<div class="tslTabs-content" ng-transclude></div>' +
+        '<div class="tab" ng-transclude></div>' +
         '</div>';
     }
 
-    angular.module('typescriptLib.angular').component('tslTab', new TabComponent());
     angular.module('typescriptLib.angular').component('tslTabset', new TabsetComponent());
+    angular.module('typescriptLib.angular').component('tslTab', new TabComponent());
 }

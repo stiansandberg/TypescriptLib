@@ -1,26 +1,22 @@
-﻿.tslTabs ul {
-  height: 30px;
-  background-color: #ccc;
-  padding: 0;
-  margin: 0; }
-  .tslTabs ul li {
-    background-color: #ccc;
-    float: left;
-    display: block;
-    cursor: pointer;
-    padding: 0 20px 0 20px;
-    margin: 0;
-    line-height: 30px;
-    vertical-align: middle; }
-    .tslTabs ul li.tslTabs-selected, .tslTabs ul li:hover {
-      background-color: #a6a6a6;
-      font-weight: bold; }
-
-.tslTabs .tslTabs-content {
+﻿.tabset ul.tabs {
   margin: 0;
-  padding: 20px;
-  z-index: 2;
-  overflow: hidden;
-  width: 100%;
-  background: #a6a6a6; }
+  padding: 0;
+  list-style: none; }
+  .tabset ul.tabs li {
+    display: inline-block;
+    padding: 9px 12px;
+    border-color: #ddd;
+    margin-bottom: -1px; }
+    .tabset ul.tabs li.selected {
+      border-width: 3px 1px 0 1px;
+      border-style: solid;
+      border-top-color: #69c;
+      background-color: white; }
+    .tabset ul.tabs li:hover {
+      cursor: pointer;
+      text-decoration: underline; }
+
+.tabset .tab {
+  border: 1px solid #ddd;
+  padding: 10px 16px; }
 

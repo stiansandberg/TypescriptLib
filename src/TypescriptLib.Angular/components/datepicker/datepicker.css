@@ -1,49 +1,71 @@
-﻿.tslDatepicker {
-  position: relative;
+﻿.datepicker .button, .datepicker input {
+  height: 33px; }
+
+.datepicker .dropdown-menu {
+  user-select: none;
+  background: white;
+  color: #333;
+  padding: 2px;
   display: inline;
-  padding: 0;
-  margin: 0; }
-  .tslDatepicker table.ng-hide {
-    -webkit-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
-    -moz-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
-    -ms-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
-    -o-transform: perspective(400) rotate3d(1, 0, 0, -90deg);
-    transform: perspective(400) rotate3d(1, 0, 0, -90deg); }
-  .tslDatepicker table {
-    -webkit-transform: perspective(400) rotate3d(0, 0, 0, 0);
-    -moz-transform: perspective(400) rotate3d(0, 0, 0, 0);
-    -ms-transform: perspective(400) rotate3d(0, 0, 0, 0);
-    -o-transform: perspective(400) rotate3d(0, 0, 0, 0);
-    transform: perspective(400) rotate3d(0, 0, 0, 0);
-    -webkit-transform-origin: 50% 0;
-    -moz-transform-origin: 50% 0;
-    -ms-transform-origin: 50% 0;
-    -o-transform-origin: 50% 0;
-    transform-origin: 50% 0;
-    -webkit-transition: 200ms;
-    -moz-transition: 200ms;
-    -o-transition: 200ms;
-    transition: 200ms;
-    position: absolute;
-    top: 30px;
-    left: 1px;
-    z-index: 9000;
-    background-color: #fff;
-    border: solid 1px #ccc;
-    width: 300px; }
-    .tslDatepicker table th {
-      text-align: center; }
-    .tslDatepicker table td, .tslDatepicker table th {
-      width: 12.5%; }
-    .tslDatepicker table td {
+  overflow: hidden; }
+  .datepicker .dropdown-menu table.navigation {
+    width: 100%; }
+    .datepicker .dropdown-menu table.navigation td {
+      border: 1px solid #fff; }
+    .datepicker .dropdown-menu table.navigation td.nav {
+      width: 10%; }
+    .datepicker .dropdown-menu table.navigation select, .datepicker .dropdown-menu table.navigation a {
+      height: 33px; }
+  .datepicker .dropdown-menu table.calendar {
+    width: 100%;
+    background-color: white; }
+    .datepicker .dropdown-menu table.calendar thead > tr > th {
+      border: none;
       text-align: center;
-      cursor: pointer; }
-      .tslDatepicker table td:hover {
-        background-color: #4cff00; }
-    .tslDatepicker table .weeknumber {
-      color: #096; }
-    .tslDatepicker table .holyday {
-      color: red; }
-    .tslDatepicker table .weekend {
-      background-color: #ccc; }
+      font-size: larger;
+      padding: 6px 12px;
+      font-size: 12px; }
+    .datepicker .dropdown-menu table.calendar tbody > tr > td {
+      cursor: pointer;
+      text-align: center;
+      padding: 6px 12px;
+      background-color: white;
+      border-radius: 15px;
+      font-size: 13px;
+      transition: background-color .3s ease; }
+      .datepicker .dropdown-menu table.calendar tbody > tr > td.weeknumber {
+        color: #999;
+        cursor: text; }
+        .datepicker .dropdown-menu table.calendar tbody > tr > td.weeknumber:hover {
+          background-color: white;
+          font-weight: normal; }
+      .datepicker .dropdown-menu table.calendar tbody > tr > td:hover {
+        font-weight: bold;
+        background-color: #ddd;
+        border-radius: 15px; }
+      .datepicker .dropdown-menu table.calendar tbody > tr > td.today {
+        text-decoration: underline;
+        font-weight: bold; }
+      .datepicker .dropdown-menu table.calendar tbody > tr > td.selected {
+        font-weight: bold;
+        color: white;
+        background-color: #69c;
+        border-radius: 15px; }
+      .datepicker .dropdown-menu table.calendar tbody > tr > td.holyday {
+        color: red; }
+      .datepicker .dropdown-menu table.calendar tbody > tr > td.notCurrentMonth {
+        color: #CCC; }
+    .datepicker .dropdown-menu table.calendar tfoot > tr > td {
+      text-align: center;
+      padding: 5px 0; }
+
+.datepicker .time-control,
+.datepicker .date-control {
+  float: left; }
+
+.datepicker .time-control {
+  max-width: 80px;
+  margin-left: 2px; }
+  .datepicker .time-control input {
+    height: 33px; }
 

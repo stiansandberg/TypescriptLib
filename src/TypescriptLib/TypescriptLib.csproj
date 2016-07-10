@@ -125,9 +125,7 @@
   <ItemGroup>
     <Content Include="tsconfig.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="build\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Test\tsconfig.json" />
   </ItemGroup>

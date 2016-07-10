@@ -5,7 +5,7 @@
     "removeComments": false,
     "sourceMap": true,
     "target": "es5",
-    "outFile": "build/typescriptLib.js",
+    "outFile": "../build/1.0.0/typescriptLib.js",
     "declaration": true,
     "allowUnreachableCode": false    
   },

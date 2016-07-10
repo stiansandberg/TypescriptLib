@@ -5,14 +5,14 @@
     "removeComments": false,
     "sourceMap": true,
     "target": "es5",
-    "outFile": "lib/typescriptLib.Angular.js",
+    "outFile": "../build/1.0.0/typescriptLib.Angular.js",
     "declaration": true,
     "allowUnreachableCode": false    
   },
   "compileOnSave": true,
   "exclude": [
     "_DefinitelyTyped",
-    "lib",
+    "build",
     "node_modules",
     "wwwroot",
     "Docs"
