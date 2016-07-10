@@ -1,11 +1,11 @@
 ﻿[
   {
-    "outputFile": "components/tabset/tabset.css",
+    "outputFile": "../build/1.0.0/tabset.css",
     "inputFile": "components/tabset/tabset.scss",
     "minify": { "enabled": false }
   },
   {
-    "outputFile": "components/datepicker/datepicker.css",
+    "outputFile": "../build/1.0.0/datepicker.css",
     "inputFile": "components/datepicker/datepicker.scss",
     "minify": { "enabled": false }
   }

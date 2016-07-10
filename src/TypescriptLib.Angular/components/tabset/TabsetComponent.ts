@@ -68,7 +68,7 @@
         bindings: any = {
             onSelect: '&'
         };
-        template: string = '<div class="tabset">' +
+        template: string = '<div class="tslTabset">' +
         '<ul class="tabs">' +
         '<li ng-repeat="tab in tabset.tabs" ng-class="{ \'selected\' : tab.selected }" ng-click="tabset.select(tab, $index)">{{tab.label}}</li>' +
         '</ul>' +

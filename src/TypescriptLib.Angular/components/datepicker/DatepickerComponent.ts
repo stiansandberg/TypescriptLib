@@ -235,7 +235,8 @@ module TSL.Components {
             min: '<',
             max: '<'
         };
-        templateUrl: string = '/components/datepicker/datepicker.html';
+        //templateUrl: string = '/components/datepicker/datepicker.html';
+        template: string = '<div class="btn-group tslDatepicker"> <div class="date-control"> <button type="button" class="btn btn-default dropdown-toggle" ng-click="dp.toggleCalendar()">{{(dp.date | date) || \'Velg dato\'}}<span class="caret"></span> </button> <div class="dropdown-menu" ng-style="dp.dropdownShowHideStyle"> <table class="navigation"> <tr> <td class="nav"><a class="btn btn-default" ng-click="dp.navigateCalendar(-1)">&lt;</a></td><td><monthpicker month="dp.monthSelectorValue"></monthpicker></td><td><yearpicker year="dp.yearSelectorValue"></yearpicker></td><td class="nav"><a class="btn btn-default" ng-click="dp.navigateCalendar(+1)">&gt;</a></td></tr></table> <table class="calendar"> <thead> <tr class="days"> <th>Uke</th> <th>Ma</th> <th>Ti</th> <th>On</th> <th>To</th> <th>Fr</th> <th>Lø</th> <th>Sø</th> </tr></thead> <tbody> <tr ng-repeat="week in dp.calendar.weeks"> <td class="weeknumber"> <small>{{week.weekNumber}}</small> </td><td ng-repeat="i in [0,1,2,3,4,5,6]" ng-class="{\'today\':dp.isToday(week._dates[i]), \'holyday\': dp.isHolyday(week._dates[i]),\'selected\': dp.isSelected(week._dates[i]),\'notCurrentMonth\': !dp.isCurrentMonth(week._dates[i])}" ng-click="dp.selectDate(week._dates[i])">{{week._dates[i].getDate()}}</td></tr></tbody> <tfoot> <tr> <td colspan="8"> <a ng-click="dp.selectDate(dp.now)">{{dp.now|date}}</a> </td></tr></tfoot> </table> </div></div><div class="time-control"> <div ng-if="dp.hasTimePicker"> <input type="text" class="form-control" ng-model="dp.timeValue" ng-blur="dp.updateTimeValue(dp.timeValue)" ng-keyup="dp.timeValueKeyUp($event, dp.timeValue)" maxlength="5"/> </div></div></div>';
     }
 
 
