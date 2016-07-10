@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypescriptLib.Angular", "Ty
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{99D2D01E-62D7-4AFD-90AB-57A4962F3039}"
 	ProjectSection(SolutionItems) = preProject
+		build\1.0.0\datepicker.css = build\1.0.0\datepicker.css
+		build\1.0.0\tabset.css = build\1.0.0\tabset.css
 		build\1.0.0\typescriptLib.Angular.d.ts = build\1.0.0\typescriptLib.Angular.d.ts
 		build\1.0.0\typescriptLib.Angular.js = build\1.0.0\typescriptLib.Angular.js
 		build\1.0.0\typescriptLib.Angular.js.map = build\1.0.0\typescriptLib.Angular.js.map
