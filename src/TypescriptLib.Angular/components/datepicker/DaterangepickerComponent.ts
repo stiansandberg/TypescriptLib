@@ -33,7 +33,7 @@
             start: '=',
             end: '='
         };
-        template: string = '<datepicker date="dp.start"></datepicker><datepicker date="dp.end"></datepicker>';
+        template: string = '<tsl-datepicker date="dp.start"></tsl-datepicker><tsl-datepicker date="dp.end"></tsl-datepicker>';
     }
 
     angular.module('typescriptLib.angular').component('tslDaterangepicker', new DaterangepickerComponent());

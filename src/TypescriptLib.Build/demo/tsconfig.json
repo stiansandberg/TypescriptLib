@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "sourceMap": false,
+    "target": "es5",
+    "outFile": "demoApp.js",
+    "declaration": false 
+  },
+  "compileOnSave": true,
+  "files": [
+    "demoApp.ts",
+    "demoAppRouteConfig.ts",
+    "demoAppController.ts"
+  ]
+}

@@ -68,6 +68,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="demo\index.html" />
+    <Content Include="demo\views\datepicker.html" />
+    <Content Include="demo\views\index.html" />
+    <Content Include="demo\views\tabset.html" />
     <Content Include="test\tsconfig.json" />
     <Content Include="build\1.0.0\typescriptLib.Angular.js.map" />
     <Content Include="build\1.0.0\typescriptLib.js.map" />
@@ -88,6 +92,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="build\1.0.0\typescriptLib.Angular.d.ts" />
     <TypeScriptCompile Include="build\1.0.0\typescriptLib.d.ts" />
+    <TypeScriptCompile Include="demo\demoApp.ts" />
+    <TypeScriptCompile Include="demo\demoAppController.ts" />
+    <TypeScriptCompile Include="demo\demoAppRouteConfig.ts" />
     <TypeScriptCompile Include="test\CalendarService.ts" />
     <TypeScriptCompile Include="test\HolydayService.ts" />
     <TypeScriptCompile Include="test\List.ts" />
@@ -110,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="demo\tsconfig.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>typescriptLib demo</title>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" href="../build/1.0.0/datepicker.css" />
+    <link rel="stylesheet" href="../build/1.0.0/tabset.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
+</head>
+<body>
+
+    <ul>
+        <li><a href="#/">Start</a></li>
+        <li><a href="#/datepicker">Datepicker</a></li>
+        <li><a href="#/tabset">Tabset</a></li>
+    </ul>
+    <div ng-controller="demoAppController as demo">
+        <ng-view></ng-view>
+
+        <hr />
+        <pre>{{demo|json}}</pre>
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/i18n/angular-locale_nb-no.js"></script>
+    <script src="../build/1.0.0/typescriptLib.js"></script>
+    <script src="../build/1.0.0/typescriptLib.Angular.js"></script>
+    <script src="demoApp.js"></script>
+</body>
+</html>
