@@ -74,6 +74,7 @@ declare module TSL.Services {
         getHolydays(year: number): Array<IHolyday>;
     }
     class HolydayService implements IHolydayService {
+        constructor();
         _holydayCache: any[];
         getHolydays(year: number): Array<IHolyday>;
         private _getHolydaysFromCache(year);

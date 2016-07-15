@@ -1,4 +1,5 @@
-﻿module TSL.Components {
+﻿/// <reference path="../../app.ts" />
+module TSL.Components {
 
     interface ITab {
         selected: boolean;
@@ -76,6 +77,7 @@
         '</div>';
     }
 
-    angular.module('typescriptLib.angular').component('tslTabset', new TabsetComponent());
-    angular.module('typescriptLib.angular').component('tslTab', new TabComponent());
+    angular.module('typescriptLib.angular')
+        .component('tslTabset', new TabsetComponent())
+        .component('tslTab', new TabComponent());
 }

@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../_definitelytyped/angularjs/angular.d.ts" />
+/// <reference path="../../app.ts" />
 
 module TSL.Components {
 
@@ -11,5 +12,6 @@ module TSL.Components {
         '<a ng-if="!$ctrl.subject" href="mailto:{{$ctrl.address}}" title="{{$ctrl.address}}">{{$ctrl.address}}</a>';
     }
 
-    angular.module('typescriptLib.angular').component('tslEmail', new EmailComponent());
+    angular.module('typescriptLib.angular')
+        .component('tslEmail', new EmailComponent());
 }

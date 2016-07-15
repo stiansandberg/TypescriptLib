@@ -73,7 +73,6 @@
     <Content Include="components\datepicker\datepicker.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="components\index.html" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

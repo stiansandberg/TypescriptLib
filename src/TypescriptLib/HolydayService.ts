@@ -11,6 +11,8 @@
 
     export class HolydayService implements IHolydayService{
 
+        constructor() { }
+
         _holydayCache: any[] = [];
 
         getHolydays(year: number): Array<IHolyday> {

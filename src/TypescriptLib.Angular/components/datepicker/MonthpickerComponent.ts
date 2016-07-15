@@ -1,15 +1,14 @@
-﻿module TSL.Components {
+﻿/// <reference path="../../app.ts" />
+module TSL.Components {
 
     class MonthpickerComponentController {
 
-        static $inject = ['$scope'];
-
-        constructor(private $scope: ng.IScope) {
+        constructor() {
             this.month = new Date().getMonth() + 1;
         }
 
         month: number;
-        monthNames: Array<string> = ['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November', 'Desember'];
+        monthNames: Array<string> = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
         possibleValues: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     }
 
@@ -26,5 +25,6 @@
     }
 
 
-    angular.module('typescriptLib.angular').component('tslMonthpicker', new MonthpickerComponent());
+    angular.module('typescriptLib.angular')
+        .component('tslMonthpicker', new MonthpickerComponent());
 }

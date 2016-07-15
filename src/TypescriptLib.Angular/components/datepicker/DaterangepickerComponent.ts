@@ -1,4 +1,5 @@
-﻿module TSL.Components {
+﻿/// <reference path="../../app.ts" />
+module TSL.Components {
 
     class DaterangepickerComponentController {
 
@@ -36,5 +37,6 @@
         template: string = '<tsl-datepicker date="dp.start"></tsl-datepicker><tsl-datepicker date="dp.end"></tsl-datepicker>';
     }
 
-    angular.module('typescriptLib.angular').component('tslDaterangepicker', new DaterangepickerComponent());
+    angular.module('typescriptLib.angular')
+        .component('tslDaterangepicker', new DaterangepickerComponent());
 }
