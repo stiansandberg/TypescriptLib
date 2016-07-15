@@ -1,6 +1,12 @@
 ﻿# TypeScriptLib.Angular
 A set of angular components
 
+## Requirements
+* [typescriptLib](https://github.com/stiansandberg/TypescriptLib/tree/master/src/TypescriptLib)
+* [Angularjs](https://angularjs.org/) (version 1.5+)
+* [Twitter bootstrap](http://getbootstrap.com/) (version 3.x. Css for styling)
+
+
 ## Datepicker
 ```html
 <tsl-datepicker date="ctrl.date"></tsl-datepicker>
