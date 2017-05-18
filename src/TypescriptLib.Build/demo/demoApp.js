@@ -19,9 +19,9 @@ var RouteConfig = (function () {
             templateUrl: 'views/index.html'
         });
     }
-    RouteConfig.$inject = ['$routeProvider', '$locationProvider'];
     return RouteConfig;
 }());
+RouteConfig.$inject = ['$routeProvider', '$locationProvider'];
 angular.module('demoApp').config(RouteConfig);
 var DemoAppController = (function () {
     function DemoAppController() {
@@ -31,7 +31,7 @@ var DemoAppController = (function () {
         this.date3 = this.now.addDays(-30);
         this.date4 = this.now.addDays(50);
     }
-    DemoAppController.$inject = [];
     return DemoAppController;
 }());
+DemoAppController.$inject = [];
 angular.module('demoApp').controller('demoAppController', DemoAppController);

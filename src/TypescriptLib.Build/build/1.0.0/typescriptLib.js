@@ -396,6 +396,25 @@ var TSL;
             this.msecs += (seconds * this.msecPerSecond);
             this.msecs += milliseconds;
         }
+        TimeSpan.FromDates = function (firstDate, secondDate) {
+            var differenceMsecs = secondDate.valueOf() - firstDate.valueOf();
+            return new TimeSpan(differenceMsecs, 0, 0, 0, 0);
+        };
+        TimeSpan.FromMilliseconds = function (milliSeconds) {
+            return new TimeSpan(milliSeconds, 0, 0, 0, 0);
+        };
+        TimeSpan.FromSeconds = function (seconds) {
+            return new TimeSpan(0, seconds, 0, 0, 0);
+        };
+        TimeSpan.FromMinutes = function (minutes) {
+            return new TimeSpan(0, 0, minutes, 0, 0);
+        };
+        TimeSpan.FromHours = function (hours) {
+            return new TimeSpan(0, 0, 0, hours, 0);
+        };
+        TimeSpan.FromDays = function (days) {
+            return new TimeSpan(0, 0, 0, 0, days);
+        };
         TimeSpan.prototype.addMilliseconds = function (milliseconds) {
             this.msecs += milliseconds;
         };
@@ -513,22 +532,6 @@ var TSL;
             return Math.floor(this.msecs / this.msecPerDay);
         };
         ;
-        TimeSpan.FromDates = function (firstDate, secondDate) {
-            var differenceMsecs = secondDate.valueOf() - firstDate.valueOf();
-            return new TimeSpan(differenceMsecs, 0, 0, 0, 0);
-        };
-        TimeSpan.FromSeconds = function (seconds) {
-            return new TimeSpan(0, seconds, 0, 0, 0);
-        };
-        TimeSpan.FromMinutes = function (minutes) {
-            return new TimeSpan(0, 0, minutes, 0, 0);
-        };
-        TimeSpan.FromHours = function (hours) {
-            return new TimeSpan(0, 0, 0, hours, 0);
-        };
-        TimeSpan.FromDays = function (days) {
-            return new TimeSpan(0, 0, 0, 0, days);
-        };
         return TimeSpan;
     }());
     TSL.TimeSpan = TimeSpan;
@@ -554,6 +557,7 @@ var TSL;
 })(TSL || (TSL = {}));
 var TSL;
 (function (TSL) {
+    var DayOfWeek;
     (function (DayOfWeek) {
         DayOfWeek[DayOfWeek["Sunday"] = 0] = "Sunday";
         DayOfWeek[DayOfWeek["Monday"] = 1] = "Monday";
@@ -562,32 +566,32 @@ var TSL;
         DayOfWeek[DayOfWeek["Thursday"] = 4] = "Thursday";
         DayOfWeek[DayOfWeek["Friday"] = 5] = "Friday";
         DayOfWeek[DayOfWeek["Saturday"] = 6] = "Saturday";
-    })(TSL.DayOfWeek || (TSL.DayOfWeek = {}));
-    var DayOfWeek = TSL.DayOfWeek;
+    })(DayOfWeek = TSL.DayOfWeek || (TSL.DayOfWeek = {}));
 })(TSL || (TSL = {}));
 /// <reference path="../dayofweek.ts" />
 var TSL;
 (function (TSL) {
     var i18n;
     (function (i18n) {
-        name = 'nb-no';
         var Calendar = (function () {
             function Calendar() {
             }
-            Calendar.firstDayOfWeek = TSL.DayOfWeek.Monday;
-            Calendar.monthNames = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
-            Calendar.weekDays = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
             return Calendar;
         }());
+        Calendar.name = 'nb-no';
+        Calendar.firstDayOfWeek = TSL.DayOfWeek.Monday;
+        Calendar.monthNames = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
+        Calendar.weekDays = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
         i18n.Calendar = Calendar;
         var Format = (function () {
             function Format() {
             }
-            Format.date = 'dd.MM.yyyy';
-            Format.time = 'HH:mm';
-            Format.dateTime = 'ss.MM.yyyy HH:mm';
             return Format;
         }());
+        Format.name = 'nb-no';
+        Format.date = 'dd.MM.yyyy';
+        Format.time = 'HH:mm';
+        Format.dateTime = 'ss.MM.yyyy HH:mm';
         i18n.Format = Format;
     })(i18n = TSL.i18n || (TSL.i18n = {}));
 })(TSL || (TSL = {}));
@@ -938,6 +942,11 @@ String.prototype.toInt = function () {
     }
     return parseInt(this);
 };
+String.prototype.isInt = function () {
+    if (!this)
+        return false;
+    return this.containsOnly('0123456789');
+};
 String.prototype.toDate = function () {
     var parts = this.split('.');
     if (parts.length !== 3)
@@ -957,7 +966,7 @@ String.prototype.toDate = function () {
 String.prototype.format = function () {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
-        args[_i - 0] = arguments[_i];
+        args[_i] = arguments[_i];
     }
     return this.replace(/{(\d+)}/g, function (match, number) {
         return typeof args[number] != 'undefined' ? args[number] : match;
@@ -1406,4 +1415,55 @@ var TSL;
         Services.ValidationService = ValidationService;
     })(Services = TSL.Services || (TSL.Services = {}));
 })(TSL || (TSL = {}));
+var TLS;
+(function (TLS) {
+    var Stopwatch = (function () {
+        function Stopwatch() {
+        }
+        Object.defineProperty(Stopwatch.prototype, "isRunning", {
+            get: function () {
+                return this._isRunning;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Stopwatch.startNew = function () {
+            var sw = new Stopwatch();
+            sw.start();
+            return sw;
+        };
+        Stopwatch.prototype.start = function () {
+            this._isRunning = true;
+            this._perf_start = performance.now();
+        };
+        Stopwatch.prototype.stop = function () {
+            this._isRunning = false;
+            this._perf_stop = performance.now();
+        };
+        Stopwatch.prototype.reset = function () {
+            this._perf_start = performance.now();
+        };
+        Object.defineProperty(Stopwatch.prototype, "elapsedMilliseconds", {
+            get: function () {
+                if (this._isRunning === true) {
+                    return (performance.now() - this._perf_start);
+                }
+                else {
+                    return (this._perf_stop - this._perf_start);
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Stopwatch.prototype, "getTimespan", {
+            get: function () {
+                return TSL.TimeSpan.FromMilliseconds(this.elapsedMilliseconds);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return Stopwatch;
+    }());
+    TLS.Stopwatch = Stopwatch;
+})(TLS || (TLS = {}));
 //# sourceMappingURL=typescriptLib.js.map

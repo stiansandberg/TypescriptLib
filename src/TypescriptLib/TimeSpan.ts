@@ -34,23 +34,25 @@
         msecPerDay: number = 86400000;
         msecs: number = 0;
 
-        static FromDates = function (firstDate: Date, secondDate: Date): TimeSpan {
+        static FromDates(firstDate: Date, secondDate: Date): TimeSpan {
             var differenceMsecs = secondDate.valueOf() - firstDate.valueOf();
             return new TimeSpan(differenceMsecs, 0, 0, 0, 0);
-        };
-
-        static FromSeconds = function (seconds: number): TimeSpan {
+        }
+        static FromMilliseconds(milliSeconds: number): TimeSpan {
+            return new TimeSpan(milliSeconds, 0, 0, 0, 0);
+        }
+        static FromSeconds(seconds: number): TimeSpan {
             return new TimeSpan(0, seconds, 0, 0, 0);
-        };
-        static FromMinutes = function (minutes: number): TimeSpan {
+        }
+        static FromMinutes(minutes: number): TimeSpan {
             return new TimeSpan(0, 0, minutes, 0, 0);
-        };
-        static FromHours = function (hours: number): TimeSpan {
+        }
+        static FromHours(hours: number): TimeSpan {
             return new TimeSpan(0, 0, 0, hours, 0);
-        };
-        static FromDays = function (days: number): TimeSpan {
+        }
+        static FromDays(days: number): TimeSpan {
             return new TimeSpan(0, 0, 0, 0, days);
-        };
+        }
 
         constructor(milliseconds: number = 0, seconds: number = 0, minutes: number = 0, hours: number = 0, days: number = 0) {
             this.msecs += (days * this.msecPerDay);

@@ -137,11 +137,12 @@ declare module TSL {
         msecPerHour: number;
         msecPerDay: number;
         msecs: number;
-        static FromDates: (firstDate: Date, secondDate: Date) => TimeSpan;
-        static FromSeconds: (seconds: number) => TimeSpan;
-        static FromMinutes: (minutes: number) => TimeSpan;
-        static FromHours: (hours: number) => TimeSpan;
-        static FromDays: (days: number) => TimeSpan;
+        static FromDates(firstDate: Date, secondDate: Date): TimeSpan;
+        static FromMilliseconds(milliSeconds: number): TimeSpan;
+        static FromSeconds(seconds: number): TimeSpan;
+        static FromMinutes(minutes: number): TimeSpan;
+        static FromHours(hours: number): TimeSpan;
+        static FromDays(days: number): TimeSpan;
         constructor(milliseconds?: number, seconds?: number, minutes?: number, hours?: number, days?: number);
         addMilliseconds(milliseconds: number): void;
         addSeconds(seconds: number): void;
@@ -196,11 +197,13 @@ declare module TSL {
 }
 declare module TSL.i18n {
     class Calendar {
+        static name: string;
         static firstDayOfWeek: DayOfWeek;
         static monthNames: Array<string>;
         static weekDays: Array<string>;
     }
     class Format {
+        static name: string;
         static date: string;
         static time: string;
         static dateTime: string;
@@ -323,6 +326,7 @@ interface String {
     format(...args: any[]): string;
     toDate(): Date;
     toInt(): number;
+    isInt(): boolean;
 }
 declare module TSL {
     class Validation {
@@ -383,5 +387,20 @@ declare module TSL.Services {
     interface IValidationError {
         property: string;
         messages: Array<string>;
+    }
+}
+declare module TLS {
+    class Stopwatch {
+        constructor();
+        private _perf_start;
+        private _perf_stop;
+        private _isRunning;
+        readonly isRunning: boolean;
+        static startNew(): Stopwatch;
+        start(): void;
+        stop(): void;
+        reset(): void;
+        readonly elapsedMilliseconds: number;
+        readonly getTimespan: TSL.ITimeSpan;
     }
 }

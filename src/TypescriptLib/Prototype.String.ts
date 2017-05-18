@@ -17,6 +17,7 @@
     format(...args: any[]): string;
     toDate(): Date;
     toInt(): number;
+    isInt(): boolean;
 }
 
 String.prototype.toInt = function (): number {
@@ -24,6 +25,12 @@ String.prototype.toInt = function (): number {
         return 0;
     }
     return parseInt(this);
+}
+
+String.prototype.isInt = function (): boolean {
+    if (!this)
+        return false;
+    return (this as string).containsOnly('0123456789');
 }
 
 String.prototype.toDate = function (): Date {
